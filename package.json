@@ -1,0 +1,31 @@
+{
+  "name": "lentil",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "author": "Andreas Stassivik <andreas@stassi.net> (https://github.com/Stassi)",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "standard",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.5.2",
+    "@material-ui/styles": "^4.5.2",
+    "clsx": "^1.0.4",
+    "markdown-to-jsx": "^6.10.3",
+    "next": "^9.1.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "raw-loader": "^3.1.0",
+    "standard": "^14.3.1"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  }
+}
