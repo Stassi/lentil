@@ -2,21 +2,24 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { Elements, StripeProvider } from 'react-stripe-elements'
+import {
+  StripeProvider,
+  Elements as StripeElements
+} from 'react-stripe-elements'
 import stripeAPIKey from '../../src/stripeAPIKey'
 
-const Container = ({ children }) => {
+const Elements = ({ children }) => {
   const [stripe, setStripe] = useState(null)
 
   useEffect(() => { setStripe(window.Stripe(stripeAPIKey)) }, [])
 
   return (
     <StripeProvider {...{ stripe }}>
-      <Elements>
+      <StripeElements>
         {children(stripe)}
-      </Elements>
+      </StripeElements>
     </StripeProvider>
   )
 }
 
-export default Container
+export default Elements
