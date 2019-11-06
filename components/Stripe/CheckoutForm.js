@@ -1,35 +1,35 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { CardElement } from 'react-stripe-elements'
 
-class CheckoutForm extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { complete: false }
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
+const CheckoutForm = ({ stripe }) => {
+  const [complete, setComplete] = useState(false)
 
-  async handleSubmit (ev) {
-    const { token } = await this.props.stripe.createToken({ name: 'Name' })
+  const handleSubmit = async () => {
+    const { token } = await stripe.createToken({ name: 'Name' })
     const response = await fetch('/charge', {
-      method: 'POST',
+      body: token.id,
       headers: { 'Content-Type': 'text/plain' },
-      body: token.id
+      method: 'POST'
     })
 
-    if (response.ok) this.setState({ complete: true })
+    if (response.ok) setComplete(true)
   }
 
-  render () {
-    if (this.state.complete) return <h1>Purchase Complete</h1>
-
-    return (
-      <div className='checkout'>
-        <p>Would you like to complete the purchase?</p>
-        <CardElement />
-        <button onClick={this.handleSubmit}>Purchase</button>
-      </div>
-    )
-  }
+  return complete ? (
+    <h1>
+      Purchase Complete
+    </h1>
+  ) : (
+    <>
+      <p>
+        Would you like to complete the purchase?
+      </p>
+      <CardElement />
+      <button onClick={handleSubmit}>
+        Purchase
+      </button>
+    </>
+  )
 }
 
 export default CheckoutForm
