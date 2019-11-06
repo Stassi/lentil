@@ -1,6 +1,5 @@
 import bodyParser from 'body-parser'
 import express from 'express'
-import proxy from 'http-proxy-middleware'
 import next from 'next'
 import Stripe from 'stripe'
 import apiTestKeys from './apiTestKeys'
@@ -17,19 +16,7 @@ const loadServer = () => {
 
   server.use(bodyParser.text())
 
-  if (dev) {
-    server.use(
-      '/api',
-      proxy({
-        changeOrigin: true,
-        logLevel: 'debug',
-        pathRewrite: { '^/api': '/' },
-        target: 'http://localhost:9000'
-      })
-    )
-  }
-
-  server.post('/charge', async (req, res) => {
+  server.post('/api/charge', async (req, res) => {
     try {
       const { status } = await stripe.charges.create({
         amount: 2000,
