@@ -45,9 +45,7 @@ const loadServer = () => {
     }
   })
 
-  server.all('*', (req, res) => {
-    return handle(req, res)
-  })
+  server.all('*', (req, res) => handle(req, res))
 
   server.listen(9000, () => console.log('Listening on port 9000'))
 }
