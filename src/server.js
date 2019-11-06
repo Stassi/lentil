@@ -7,7 +7,7 @@ import apiTestKeys from './apiTestKeys'
 
 const env = process.env.NODE_ENV
 const dev = env !== 'production'
-const app = next({ dev })
+const app = next({ dev, dir: '.' })
 const handle = app.getRequestHandler()
 
 const stripe = Stripe(apiTestKeys.secret)
