@@ -3,13 +3,14 @@ import MaterialContainer from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import CheckoutForm from './CheckoutForm'
 import StripeElements from './Elements'
+import apiKey from '../../src/stripeAPIKey'
 
 const Layout = () => (
   <MaterialContainer maxWidth='sm'>
     <Typography component='h1' variant='h5'>
       React Stripe Elements Example
     </Typography>
-    <StripeElements>
+    <StripeElements {...{ apiKey }}>
       {stripe => (
         <CheckoutForm {...{ stripe }} />
       )}

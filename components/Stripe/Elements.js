@@ -6,12 +6,11 @@ import {
   StripeProvider,
   Elements as StripeElements
 } from 'react-stripe-elements'
-import stripeAPIKey from '../../src/stripeAPIKey'
 
-const Elements = ({ children }) => {
+const Elements = ({ apiKey, children }) => {
   const [stripe, setStripe] = useState(null)
 
-  useEffect(() => { setStripe(window.Stripe(stripeAPIKey)) }, [])
+  useEffect(() => { setStripe(window.Stripe(apiKey)) }, [])
 
   return (
     <StripeProvider {...{ stripe }}>
