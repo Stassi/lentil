@@ -34,7 +34,6 @@ const loadServer = () => {
         amount: 2000,
         currency: 'usd',
         description: 'An example charge',
-        logLevel: 'debug',
         source: req.body
       })
 
