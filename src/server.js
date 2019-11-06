@@ -23,7 +23,7 @@ const loadServer = () => {
       proxy({
         changeOrigin: true,
         pathRewrite: { '^/api': '/' },
-        target: 'http://localhost:9000/api/'
+        target: 'http://localhost:9000'
       })
     )
   }
