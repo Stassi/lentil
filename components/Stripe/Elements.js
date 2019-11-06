@@ -15,7 +15,7 @@ const Elements = ({ apiKey, children }) => {
   return (
     <StripeProvider {...{ stripe }}>
       <StripeElements>
-        {children(stripe)}
+        {children}
       </StripeElements>
     </StripeProvider>
   )

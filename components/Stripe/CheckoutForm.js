@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CardElement } from 'react-stripe-elements'
+import { CardElement, injectStripe } from 'react-stripe-elements'
 
 const CheckoutForm = ({ stripe }) => {
   const [complete, setComplete] = useState(false)
@@ -32,4 +32,4 @@ const CheckoutForm = ({ stripe }) => {
   )
 }
 
-export default CheckoutForm
+export default injectStripe(CheckoutForm)
