@@ -1,15 +1,12 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 import next from 'next'
-import Stripe from 'stripe'
-import apiTestKeys from './apiTestKeys'
+import stripe from './stripeServer'
 
 const env = process.env.NODE_ENV
 const dev = env !== 'production'
 const app = next({ dev, dir: '.' })
 const handle = app.getRequestHandler()
-
-const stripe = Stripe(apiTestKeys.secret)
 
 const loadServer = () => {
   const server = express()
