@@ -13,16 +13,23 @@
   "dependencies": {
     "@material-ui/core": "^4.5.2",
     "@material-ui/styles": "^4.5.2",
+    "body-parser": "^1.19.0",
     "clsx": "^1.0.4",
+    "express": "^4.17.1",
     "markdown-to-jsx": "^6.10.3",
     "next": "^9.1.2",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-stripe-elements": "^5.1.0"
+    "react-stripe-elements": "^5.1.0",
+    "stripe": "^7.11.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.0",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
     "babel-eslint": "^10.0.3",
+    "http-proxy-middleware": "^0.20.0",
     "raw-loader": "^3.1.0",
     "standard": "^14.3.1"
   },
