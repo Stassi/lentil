@@ -2,7 +2,7 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { StripeProvider } from 'react-stripe-elements'
+import { Elements, StripeProvider } from 'react-stripe-elements'
 import stripeAPIKey from '../../src/stripeAPIKey'
 
 const Container = ({ children }) => {
@@ -12,7 +12,9 @@ const Container = ({ children }) => {
 
   return (
     <StripeProvider {...{ stripe }}>
-      {children(stripe)}
+      <Elements>
+        {children(stripe)}
+      </Elements>
     </StripeProvider>
   )
 }

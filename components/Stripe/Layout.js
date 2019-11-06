@@ -1,5 +1,4 @@
 import React from 'react'
-import { Elements } from 'react-stripe-elements'
 import MaterialContainer from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import CheckoutForm from './CheckoutForm'
@@ -12,9 +11,7 @@ const Layout = () => (
     </Typography>
     <StripeContainer>
       {stripe => (
-        <Elements>
-          <CheckoutForm {...{ stripe }} />
-        </Elements>
+        <CheckoutForm {...{ stripe }} />
       )}
     </StripeContainer>
   </MaterialContainer>
