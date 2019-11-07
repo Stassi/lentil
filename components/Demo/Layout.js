@@ -18,6 +18,13 @@ const Layout = () => (
       </Typography>
       <Link
         color='secondary'
+        href='/stripe'
+      >
+        Go to the Stripe page
+      </Link>
+      <br />
+      <Link
+        color='secondary'
         href='/about'
       >
         Go to the about page
