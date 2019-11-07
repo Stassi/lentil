@@ -1,13 +1,13 @@
-import configuration from './configuration'
+import settings from './settings'
 
 const {
   env: {
     NODE_ENV: nodeEnv,
     PORT: portString
   }
-} = process
+} = process || {}
 
-const { defaultPort } = configuration
+const { defaultPort } = settings
 const port = Number(portString) || defaultPort
 
 const production = nodeEnv === 'production'
