@@ -17,6 +17,7 @@ serveNextJs({
   port,
   app: next({ dev }),
   express: express(),
+  listeningMessage: `[ server ] Ready on http://localhost:${port}`,
   onReady: serveExpress,
   stripe: stripe(stripeSecret)
 })
