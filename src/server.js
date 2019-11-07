@@ -1,39 +1,22 @@
-import bodyParser from 'body-parser'
 import express from 'express'
 import next from 'next'
-import stripe from './stripeServer'
+import stripe from 'stripe'
+import apiTestKeys from './apiTestKeys'
+import environment from './environment'
+import serveExpress from './express/serve'
+import serveNextJs from './nextJs/serve'
 
-const env = process.env.NODE_ENV
-const dev = env !== 'production'
-const app = next({ dev, dir: '.' })
-const handle = app.getRequestHandler()
+const {
+  port,
+  development: dev
+} = environment
 
-const loadServer = () => {
-  const server = express()
+const { secret } = apiTestKeys
 
-  server.use(bodyParser.text())
-
-  server.post('/api/charge', async (req, res) => {
-    try {
-      const { status } = await stripe.charges.create({
-        amount: 2000,
-        currency: 'usd',
-        description: 'An example charge',
-        source: req.body
-      })
-
-      res.json({ status })
-    } catch (err) {
-      console.log(err)
-      res.status(500).end()
-    }
-  })
-
-  server.all('*', (req, res) => handle(req, res))
-
-  server.listen(9000, () => console.log('Listening on port 9000'))
-}
-
-app
-  .prepare()
-  .then(loadServer)
+serveNextJs({
+  port,
+  app: next({ dev }),
+  express: express(),
+  onReady: serveExpress,
+  stripe: stripe(secret)
+})
