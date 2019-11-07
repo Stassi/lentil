@@ -1,21 +1,18 @@
 import bodyParser from 'body-parser'
-import {
-  nextJsRequest,
-  socketListener,
-  stripeCharge
-} from './handlers'
+import { stripeCharge } from './routes'
+import socketListener from './socketListener'
 
 const serve = ({
+  defaultRouteHandler,
   port,
   stripe,
-  app: nextApp,
   express: server
 }) => {
   server.use(bodyParser.text())
 
   server.post('/api/charge', stripeCharge(stripe))
 
-  server.all('*', nextJsRequest(nextApp))
+  server.all('*', defaultRouteHandler)
 
   server.listen(port, socketListener(port))
 }
