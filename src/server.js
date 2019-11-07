@@ -1,7 +1,7 @@
 import express from 'express'
 import next from 'next'
 import stripe from 'stripe'
-import apiTestKeys from './apiTestKeys'
+import configuration from './configuration'
 import environment from './environment'
 import serveExpress from './express/serve'
 import serveNextJs from './nextJs/serve'
@@ -11,12 +11,16 @@ const {
   development: dev
 } = environment
 
-const { secret } = apiTestKeys
+const {
+  stripeApiTestKeys: {
+    secret: stripeSecret
+  }
+} = configuration
 
 serveNextJs({
   port,
   app: next({ dev }),
   express: express(),
   onReady: serveExpress,
-  stripe: stripe(secret)
+  stripe: stripe(stripeSecret)
 })
