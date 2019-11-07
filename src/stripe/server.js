@@ -1,8 +1,8 @@
-import stripeServer from 'stripe'
+import Stripe from 'stripe'
 import createCharge from './createCharge'
 
 const server = secret => {
-  const stripe = stripeServer(secret)
+  const stripe = Stripe(secret)
 
   return ({ createCharge: createCharge(stripe) })
 }
