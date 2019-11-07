@@ -1,6 +1,9 @@
-const stripeCharge = stripe => async (req, res) => {
+import createCharge from '../../stripe/createCharge'
+
+const stripeCharge = stripe => (req, res) => {
   try {
-    const { status } = await stripe.charges.create({
+    // TODO: Parameterize createCharge
+    const { status } = createCharge(stripe)({
       amount: 2000,
       currency: 'usd',
       description: 'An example charge',
