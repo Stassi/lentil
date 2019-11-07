@@ -1,10 +1,8 @@
-const stripeCharge = createCharge => (req, res) => {
+const stripeCharge = ({ createCharge, ...props }) => (req, res) => {
   try {
     const { status } = createCharge({
-      amount: 2000,
-      currency: 'usd',
-      description: 'An example charge',
-      source: req.body
+      source: req.body,
+      ...props
     })
 
     res.json({ status })

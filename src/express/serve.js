@@ -7,12 +7,16 @@ const serve = ({
   port,
   express: server,
   stripe: {
-    createCharge: createStripeCharge
+    createCharge,
+    exampleCharge
   }
 }) => {
   server.use(bodyParser.text())
 
-  server.post('/api/charge', stripeCharge(createStripeCharge))
+  server.post(
+    '/api/charge/example',
+    stripeCharge({ createCharge, ...exampleCharge })
+  )
 
   server.all('*', defaultRouteHandler)
 

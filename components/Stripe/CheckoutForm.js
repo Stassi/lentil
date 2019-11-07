@@ -6,7 +6,7 @@ const CheckoutForm = ({ stripe }) => {
 
   const handleSubmit = async () => {
     const { token } = await stripe.createToken({ name: 'Name' })
-    const response = await window.fetch('/api/charge', {
+    const response = await window.fetch('/api/charge/example', {
       body: token.id,
       headers: { 'Content-Type': 'text/plain' },
       method: 'POST'
