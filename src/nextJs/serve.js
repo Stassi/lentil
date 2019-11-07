@@ -4,8 +4,11 @@ const serve = async ({
   ...props
 }) => {
   await app.prepare()
-  const defaultRouteHandler = app.getRequestHandler()
-  onReady({ defaultRouteHandler, ...props })
+
+  onReady({
+    defaultRouteHandler: app.getRequestHandler(),
+    ...props
+  })
 }
 
 export default serve
