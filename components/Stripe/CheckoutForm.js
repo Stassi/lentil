@@ -1,11 +1,26 @@
 import React, { useState } from 'react'
 import { CardElement, injectStripe } from 'react-stripe-elements'
-import { Typography } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1)
+  }
+}))
 
 const CheckoutForm = ({ stripe }) => {
+  const { button: buttonClass } = useStyles()
+
   const [complete, setComplete] = useState(false)
 
+  const [purchasingEnabled, setPurchasingEnabled] = useState(true)
+  const disablePurchasing = () => setPurchasingEnabled(false)
+
   const handleSubmit = async () => {
+    disablePurchasing()
+
     const {
       token: {
         id: tokenId
@@ -37,9 +52,15 @@ const CheckoutForm = ({ stripe }) => {
         Would you like to complete the purchase?
       </Typography>
       <CardElement />
-      <button onClick={handleSubmit}>
+      <Button
+        color='primary'
+        className={buttonClass}
+        disabled={!purchasingEnabled}
+        onClick={handleSubmit}
+        variant='contained'
+      >
         Purchase
-      </button>
+      </Button>
     </>
   )
 }
