@@ -13,7 +13,11 @@ const {
 
 const Layout = () => (
   <MaterialContainer maxWidth='sm'>
-    <Typography component='h1' variant='h5'>
+    <Typography
+      component='h1'
+      gutterBottom
+      variant='h5'
+    >
       React Stripe Elements Example
     </Typography>
     <StripeElements {...{ apiKey }}>

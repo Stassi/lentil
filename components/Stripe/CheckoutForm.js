@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { CardElement, injectStripe } from 'react-stripe-elements'
+import { Typography } from '@material-ui/core'
 
 const CheckoutForm = ({ stripe }) => {
   const [complete, setComplete] = useState(false)
@@ -32,9 +33,9 @@ const CheckoutForm = ({ stripe }) => {
     </h1>
   ) : (
     <>
-      <p>
+      <Typography gutterBottom variant='body2'>
         Would you like to complete the purchase?
-      </p>
+      </Typography>
       <CardElement />
       <button onClick={handleSubmit}>
         Purchase
