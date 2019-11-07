@@ -11,7 +11,7 @@ const serve = ({
     exampleCharge
   }
 }) => {
-  server.use(bodyParser.text())
+  server.use(bodyParser.json())
 
   server.post(
     '/api/charge/example',

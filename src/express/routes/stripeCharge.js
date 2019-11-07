@@ -1,10 +1,8 @@
 const stripeCharge = ({ createCharge, ...props }) => (req, res) => {
   try {
-    const { status } = createCharge({
-      source: req.body,
-      ...props
-    })
-
+    // TODO: Replace param props with body props
+    const { tokenId: source } = req.body
+    const { status } = createCharge({ source, ...props })
     res.json({ status })
   } catch (err) {
     console.log(err)

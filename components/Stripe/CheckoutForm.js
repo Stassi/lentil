@@ -5,12 +5,23 @@ const CheckoutForm = ({ stripe }) => {
   const [complete, setComplete] = useState(false)
 
   const handleSubmit = async () => {
-    const { token } = await stripe.createToken({ name: 'Name' })
-    const response = await window.fetch('/api/charge/example', {
-      body: token.id,
-      headers: { 'Content-Type': 'text/plain' },
-      method: 'POST'
-    })
+    const {
+      token: {
+        id: tokenId
+      }
+    } = await stripe.createToken({ name: 'Name' })
+
+    const response = await window.fetch(
+      '/api/charge/example',
+      {
+        body: JSON.stringify({ tokenId }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      }
+    )
 
     if (response.ok) setComplete(true)
   }
