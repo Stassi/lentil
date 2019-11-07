@@ -1,9 +1,6 @@
-import createCharge from '../../stripe/createCharge'
-
-const stripeCharge = stripe => (req, res) => {
+const stripeCharge = createCharge => (req, res) => {
   try {
-    // TODO: Parameterize createCharge
-    const { status } = createCharge(stripe)({
+    const { status } = createCharge({
       amount: 2000,
       currency: 'usd',
       description: 'An example charge',

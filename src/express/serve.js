@@ -5,12 +5,14 @@ import socketListener from './socketListener'
 const serve = ({
   defaultRouteHandler,
   port,
-  stripe,
-  express: server
+  express: server,
+  stripe: {
+    createCharge: createStripeCharge
+  }
 }) => {
   server.use(bodyParser.text())
 
-  server.post('/api/charge', stripeCharge(stripe))
+  server.post('/api/charge', stripeCharge(createStripeCharge))
 
   server.all('*', defaultRouteHandler)
 
