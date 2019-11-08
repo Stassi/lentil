@@ -14,22 +14,20 @@ const enhance = Component => ({
     value: { postalCode } = {}
   },
   ...props
-}) => {
-  return (
-    <Component
-      {...{
-        brand,
-        errorCode,
-        errorMessage,
-        errorType,
-        inputComplete,
-        inputEmpty,
-        postalCode,
-        ...props
-      }}
-    />
-  )
-}
+}) => (
+  <Component
+    {...{
+      brand,
+      errorCode,
+      errorMessage,
+      errorType,
+      inputComplete,
+      inputEmpty,
+      postalCode,
+      ...props
+    }}
+  />
+)
 
 const normalizeStripeCard = Component => {
   const [EnhancedComponent, targetName] = [
