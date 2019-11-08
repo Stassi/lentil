@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { CardElement } from 'react-stripe-elements'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+import CardMedia from '@material-ui/core/CardMedia'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import configuration from '../../src/configuration'
@@ -12,6 +13,10 @@ import useElements from './useElements'
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%' // 16:9
   },
   root: {
     marginTop: theme.spacing(3)
@@ -27,6 +32,7 @@ const {
 const ExampleStripeCard = ({ stripe }) => {
   const {
     button: buttonClass,
+    media: mediaClass,
     root: rootClass
   } = useStyles()
 
@@ -95,6 +101,13 @@ const ExampleStripeCard = ({ stripe }) => {
           </>
         )}
         CollapsibleContent={<CardDebugger {...{ stripeCard }} />}
+        Media={(
+          <CardMedia
+            className={mediaClass}
+            image='//via.placeholder.com/345x194?text=Example+media'
+            title='Example media'
+          />
+        )}
         PrimaryButton={(
           <Button
             color='primary'

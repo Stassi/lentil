@@ -4,7 +4,6 @@ import clsx from 'clsx'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
 import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -20,22 +19,18 @@ const useStyles = makeStyles(theme => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)'
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%' // 16:9
   }
 }))
 
 const ExpandableCard = ({
   BodyContent,
   CollapsibleContent,
+  Media,
   PrimaryButton
 }) => {
   const {
     expand: expandClass,
-    expandOpen: expandOpenClass,
-    media: mediaClass
+    expandOpen: expandOpenClass
   } = useStyles()
 
   const [expanded, setExpanded] = useState(false)
@@ -43,11 +38,8 @@ const ExpandableCard = ({
 
   return (
     <Card>
-      <CardMedia
-        className={mediaClass}
-        image='//via.placeholder.com/345x194?text=Example+media'
-        title='Example media'
-      />
+      {Media}
+
       <CardContent>
         {BodyContent}
       </CardContent>
