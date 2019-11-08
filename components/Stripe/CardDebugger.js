@@ -9,16 +9,15 @@ import TableRow from '@material-ui/core/TableRow'
 import normalizeParameters from './normalizeStripeCard'
 import stringifyBoolean from '../../src/utility/stringifyBoolean'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
-    marginTop: theme.spacing(3),
     overflowX: 'auto',
     width: '100%'
   },
   table: {
     minWidth: 220
   }
-}))
+})
 
 const createData = (field, value) => ({ field, value })
 
