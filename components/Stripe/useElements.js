@@ -6,7 +6,7 @@ import {
 } from 'react-stripe-elements'
 import getDisplayName from '../../src/utility/getDisplayName'
 
-const enhance = apiKey => Component => ({ ...props }) => {
+const enhance = ({ apiKey, Component }) => ({ ...props }) => {
   const [stripe, setStripe] = useState(null)
 
   useEffect(() => { setStripe(window.Stripe(apiKey)) }, [])
@@ -23,7 +23,7 @@ const enhance = apiKey => Component => ({ ...props }) => {
 const useElements = apiKey => Component => {
   const StripeInjectedComponent = injectStripe(Component)
   const [EnhancedComponent, targetName] = [
-    enhance(apiKey)(StripeInjectedComponent),
+    enhance({ apiKey, Component: StripeInjectedComponent }),
     getDisplayName(StripeInjectedComponent)
   ]
   EnhancedComponent.displayName = `WithStripeElements(${targetName})`
