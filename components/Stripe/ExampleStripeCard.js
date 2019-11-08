@@ -110,8 +110,8 @@ const ExampleStripeCard = ({ stripe }) => {
         )}
         PrimaryButton={(
           <Button
-            color='primary'
             className={buttonClass}
+            color='primary'
             disabled={!purchasingEnabled}
             onClick={handleSubmit}
             variant='contained'
