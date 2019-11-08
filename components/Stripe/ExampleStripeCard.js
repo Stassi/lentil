@@ -12,6 +12,9 @@ import useElements from './useElements'
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
+  },
+  root: {
+    marginTop: theme.spacing(3)
   }
 }))
 
@@ -22,7 +25,10 @@ const {
 } = configuration
 
 const ExampleStripeCard = ({ stripe }) => {
-  const { button: buttonClass } = useStyles()
+  const {
+    button: buttonClass,
+    root: rootClass
+  } = useStyles()
 
   const [purchaseComplete, setPurchaseComplete] = useState(false)
 
@@ -56,11 +62,11 @@ const ExampleStripeCard = ({ stripe }) => {
   }
 
   return purchaseComplete ? (
-    <h1>
+    <h1 className={rootClass}>
       Purchase Complete
     </h1>
   ) : (
-    <Container maxWidth='sm'>
+    <Container className={rootClass} maxWidth='sm'>
       <ExpandableCard
         BodyContent={(
           <>
