@@ -1,3 +1,3 @@
-import Stripe from '../components/Stripe'
+import Stripe from '../components/Stripe/CheckoutForm'
 
 export default Stripe
