@@ -6,7 +6,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import normalizeParameters from '../../src/enhancers/normalizeStripeCard'
+import normalizeParameters from './normalizeStripeCard'
 import stringifyBoolean from '../../src/utility/stringifyBoolean'
 
 const useStyles = makeStyles(theme => ({

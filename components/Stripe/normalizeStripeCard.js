@@ -1,5 +1,5 @@
 import React from 'react'
-import getDisplayName from '../utility/getDisplayName'
+import getDisplayName from '../../src/utility/getDisplayName'
 
 const enhance = Component => ({
   stripeCard: {
