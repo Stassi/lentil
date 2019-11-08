@@ -3,6 +3,7 @@ import { CardElement, injectStripe } from 'react-stripe-elements'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import StripeCardDebugger from '../StripeCardDebugger'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -17,6 +18,8 @@ const CheckoutForm = ({ stripe }) => {
 
   const [purchasingEnabled, setPurchasingEnabled] = useState(true)
   const disablePurchasing = () => setPurchasingEnabled(false)
+
+  const [stripeCard, handleStripeCardChange] = useState({})
 
   const handleSubmit = async () => {
     disablePurchasing()
@@ -51,7 +54,7 @@ const CheckoutForm = ({ stripe }) => {
       <Typography gutterBottom variant='body2'>
         Would you like to complete the purchase?
       </Typography>
-      <CardElement />
+      <CardElement onChange={handleStripeCardChange} />
       <Button
         color='primary'
         className={buttonClass}
@@ -61,6 +64,7 @@ const CheckoutForm = ({ stripe }) => {
       >
         Purchase
       </Button>
+      <StripeCardDebugger {...{ stripeCard }} />
     </>
   )
 }
