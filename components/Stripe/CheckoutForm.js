@@ -1,16 +1,24 @@
 import React, { useState } from 'react'
-import { CardElement, injectStripe } from 'react-stripe-elements'
+import { CardElement } from 'react-stripe-elements'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import configuration from '../../src/configuration'
 import CardDebugger from './CardDebugger'
 import ExpandableCard from '../ExpandableCard'
+import useElements from './useElements'
 
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
   }
 }))
+
+const {
+  stripeApiTestKeys: {
+    publishable: apiKey
+  }
+} = configuration
 
 const CheckoutForm = ({ stripe }) => {
   const { button: buttonClass } = useStyles()
@@ -88,4 +96,4 @@ const CheckoutForm = ({ stripe }) => {
   )
 }
 
-export default injectStripe(CheckoutForm)
+export default useElements(apiKey)(CheckoutForm)
