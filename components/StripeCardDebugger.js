@@ -1,6 +1,6 @@
 import React from 'react'
-import normalizeParameters from './normalizeParameters'
-import stringifyBoolean from '../../src/utility/stringifyBoolean'
+import normalizeParameters from '../src/enhancers/normalizeStripeCard'
+import stringifyBoolean from '../src/utility/stringifyBoolean'
 
 const StripeCardDebugger = ({
   brand,

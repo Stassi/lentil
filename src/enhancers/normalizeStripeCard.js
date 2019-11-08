@@ -1,7 +1,7 @@
 import React from 'react'
+import getDisplayName from '../utility/getDisplayName'
 
-// TODO: Set EnhancedComponent.displayName
-const normalizeParameters = Component => ({
+const enhance = Component => ({
   stripeCard: {
     brand,
     complete: inputComplete = false,
@@ -31,4 +31,13 @@ const normalizeParameters = Component => ({
   )
 }
 
-export default normalizeParameters
+const normalizeStripeCard = Component => {
+  const [EnhancedComponent, targetName] = [
+    enhance(Component),
+    getDisplayName(Component)
+  ]
+  EnhancedComponent.displayName = `UsingNormalizedStripeCard(${targetName})`
+  return EnhancedComponent
+}
+
+export default normalizeStripeCard
