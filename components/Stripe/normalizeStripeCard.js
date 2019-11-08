@@ -34,7 +34,7 @@ const normalizeStripeCard = Component => {
     enhance(Component),
     getDisplayName(Component)
   ]
-  EnhancedComponent.displayName = `UsingNormalizedStripeCard(${targetName})`
+  EnhancedComponent.displayName = `WithNormalizedStripeCard(${targetName})`
   return EnhancedComponent
 }
 
