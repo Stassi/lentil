@@ -9,7 +9,7 @@ import {
 } from 'react-stripe-elements'
 import getDisplayName from '../../src/utility/getDisplayName'
 
-const enhance = ({ apiKey, Component }) => ({ ...props }) => {
+const enhance = ({ apiKey, Component }) => props => {
   const [stripe, setStripe] = useState(null)
 
   // TODO: Load script asynchronously
