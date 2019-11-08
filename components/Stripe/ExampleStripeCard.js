@@ -77,29 +77,6 @@ const ExampleStripeCard = ({ stripe }) => {
   ) : (
     <Container className={rootClass} maxWidth='sm'>
       <ExpandableCard
-        BodyContent={(
-          <>
-            <Typography
-              component='h2'
-              gutterBottom
-              variant='h5'
-            >
-              React Stripe Elements Example
-            </Typography>
-            <Typography
-              color='textSecondary'
-              component='p'
-              gutterBottom
-              variant='body2'
-            >
-              Would you like to complete the purchase?
-            </Typography>
-            <CardElement
-              onChange={handleStripeCardChange}
-              onReady={handleCardElementReady}
-            />
-          </>
-        )}
         CollapsibleContent={<CardDebugger {...{ stripeCard }} />}
         Media={(
           <CardMedia
@@ -119,7 +96,27 @@ const ExampleStripeCard = ({ stripe }) => {
             Purchase
           </Button>
         )}
-      />
+      >
+        <Typography
+          component='h2'
+          gutterBottom
+          variant='h5'
+        >
+          React Stripe Elements Example
+        </Typography>
+        <Typography
+          color='textSecondary'
+          component='p'
+          gutterBottom
+          variant='body2'
+        >
+          Would you like to complete the purchase?
+        </Typography>
+        <CardElement
+          onChange={handleStripeCardChange}
+          onReady={handleCardElementReady}
+        />
+      </ExpandableCard>
     </Container>
   )
 }

@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const ExpandableCard = ({
-  BodyContent,
+  children,
   CollapsibleContent,
   Media,
   PrimaryButton
@@ -41,7 +41,7 @@ const ExpandableCard = ({
       {Media}
 
       <CardContent>
-        {BodyContent}
+        {children}
       </CardContent>
 
       <CardActions disableSpacing>
