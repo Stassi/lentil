@@ -35,6 +35,9 @@ const ExampleStripeCard = ({ stripe }) => {
   const [purchasingEnabled, setPurchasingEnabled] = useState(true)
   const disablePurchasing = () => setPurchasingEnabled(false)
 
+  // TODO: Implement
+  const [cardElement, handleCardElementReady] = useState(null)
+
   const [stripeCard, handleStripeCardChange] = useState({})
 
   const handleSubmit = async () => {
@@ -85,7 +88,10 @@ const ExampleStripeCard = ({ stripe }) => {
             >
               Would you like to complete the purchase?
             </Typography>
-            <CardElement onChange={handleStripeCardChange} />
+            <CardElement
+              onChange={handleStripeCardChange}
+              onReady={handleCardElementReady}
+            />
           </>
         )}
         CollapsibleContent={<CardDebugger {...{ stripeCard }} />}
