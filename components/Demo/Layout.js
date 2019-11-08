@@ -25,6 +25,13 @@ const Layout = () => (
       <br />
       <Link
         color='secondary'
+        href='/checkout'
+      >
+        Go to the checkout page
+      </Link>
+      <br />
+      <Link
+        color='secondary'
         href='/about'
       >
         Go to the about page
