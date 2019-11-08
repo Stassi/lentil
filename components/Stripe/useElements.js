@@ -12,6 +12,7 @@ import getDisplayName from '../../src/utility/getDisplayName'
 const enhance = ({ apiKey, Component }) => ({ ...props }) => {
   const [stripe, setStripe] = useState(null)
 
+  // TODO: Load script asynchronously
   useEffect(() => { setStripe(window.Stripe(apiKey)) }, [])
 
   return (
