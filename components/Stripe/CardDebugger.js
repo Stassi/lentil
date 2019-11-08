@@ -6,8 +6,8 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import normalizeParameters from '../src/enhancers/normalizeStripeCard'
-import stringifyBoolean from '../src/utility/stringifyBoolean'
+import normalizeParameters from '../../src/enhancers/normalizeStripeCard'
+import stringifyBoolean from '../../src/utility/stringifyBoolean'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 const createData = (field, value) => ({ field, value })
 
-const StripeCardDebugger = ({
+const CardDebugger = ({
   brand,
   errorCode,
   errorMessage,
@@ -81,4 +81,4 @@ const StripeCardDebugger = ({
   )
 }
 
-export default normalizeParameters(StripeCardDebugger)
+export default normalizeParameters(CardDebugger)

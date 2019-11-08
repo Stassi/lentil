@@ -3,8 +3,8 @@ import { CardElement, injectStripe } from 'react-stripe-elements'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import CardDebugger from './CardDebugger'
 import ExpandableCard from '../ExpandableCard'
-import StripeCardDebugger from '../StripeCardDebugger'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -72,7 +72,7 @@ const CheckoutForm = ({ stripe }) => {
           <CardElement onChange={handleStripeCardChange} />
         </>
       )}
-      CollapsibleContent={<StripeCardDebugger {...{ stripeCard }} />}
+      CollapsibleContent={<CardDebugger {...{ stripeCard }} />}
       PrimaryButton={(
         <Button
           color='primary'
