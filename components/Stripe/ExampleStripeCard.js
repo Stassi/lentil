@@ -21,7 +21,7 @@ const {
   }
 } = configuration
 
-const CheckoutForm = ({ stripe }) => {
+const ExampleStripeCard = ({ stripe }) => {
   const { button: buttonClass } = useStyles()
 
   const [purchaseComplete, setPurchaseComplete] = useState(false)
@@ -99,4 +99,4 @@ const CheckoutForm = ({ stripe }) => {
   )
 }
 
-export default useElements(apiKey)(CheckoutForm)
+export default useElements(apiKey)(ExampleStripeCard)
