@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 const CheckoutForm = ({ stripe }) => {
   const { button: buttonClass } = useStyles()
 
-  const [complete, setComplete] = useState(false)
+  const [purchaseComplete, setPurchaseComplete] = useState(false)
 
   const [purchasingEnabled, setPurchasingEnabled] = useState(true)
   const disablePurchasing = () => setPurchasingEnabled(false)
@@ -43,10 +43,10 @@ const CheckoutForm = ({ stripe }) => {
       }
     )
 
-    if (response.ok) setComplete(true)
+    if (response.ok) setPurchaseComplete(true)
   }
 
-  return complete ? (
+  return purchaseComplete ? (
     <h1>
       Purchase Complete
     </h1>
