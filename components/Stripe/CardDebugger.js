@@ -19,8 +19,6 @@ const useStyles = makeStyles({
   }
 })
 
-const createData = (field, value) => ({ field, value })
-
 const CardDebugger = ({
   brand,
   errorCode,
@@ -41,14 +39,14 @@ const CardDebugger = ({
   ].map(stringifyBoolean)
 
   const rows = [
-    createData('Brand', brand),
-    createData('Postal code', postalCode),
-    createData('Input complete', inputComplete),
-    createData('Input empty', inputEmpty),
-    createData('Error code', errorCode),
-    createData('Error message', errorMessage),
-    createData('Error type', errorType)
-  ]
+    ['Brand', brand],
+    ['Postal code', postalCode],
+    ['Input complete', inputComplete],
+    ['Input empty', inputEmpty],
+    ['Error code', errorCode],
+    ['Error message', errorMessage],
+    ['Error type', errorType]
+  ].map(([field, value]) => ({ field, value }))
 
   return (
     <Paper className={rootClass}>
