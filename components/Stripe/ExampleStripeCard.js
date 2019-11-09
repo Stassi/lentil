@@ -43,11 +43,7 @@ const PureExampleStripeCard = ({
 }) => (
   <Container className={rootClass} maxWidth='sm'>
     <ExpandableCard
-      CollapsibleContent={
-        <>
-          <CardDebugger {...{ stripeCard }} />
-        </>
-      }
+      CollapsibleContent={<CardDebugger {...{ stripeCard }} />}
       Media={(
         <CardMedia
           className={mediaClass}
