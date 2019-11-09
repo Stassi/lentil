@@ -15,8 +15,10 @@ const useElements = useStripeElements(apiKey)
 const CardContainer = ({ stripe }) => {
   const [stripeCard, handleStripeCardChange] = useState({})
 
+  const [element, handleCardElementReady] = useState(null)
+  const elementLoaded = !!element
+
   // TODO: Implement
-  const [, handleCardElementReady] = useState(null)
   const [, setToken] = useState({})
   const [, setResponse] = useState({})
   const [, setResponseBody] = useState({})
@@ -53,6 +55,7 @@ const CardContainer = ({ stripe }) => {
   return (
     <PureCard
       {...{
+        elementLoaded,
         handleCardElementReady,
         handleStripeCardChange,
         handleSubmit,
