@@ -30,13 +30,66 @@ const {
   }
 } = configuration
 
-const ExampleStripeCard = ({ stripe }) => {
-  const {
+const PureExampleStripeCard = ({
+  handleCardElementReady,
+  handleStripeCardChange,
+  handleSubmit,
+  stripeCard,
+  classes: {
     button: buttonClass,
     media: mediaClass,
     root: rootClass
-  } = useStyles()
+  }
+}) => (
+  <Container className={rootClass} maxWidth='sm'>
+    <ExpandableCard
+      CollapsibleContent={
+        <>
+          <CardDebugger {...{ stripeCard }} />
+        </>
+      }
+      Media={(
+        <CardMedia
+          className={mediaClass}
+          image='//via.placeholder.com/345x194?text=Example+media'
+          title='Example media'
+        />
+      )}
+      PrimaryButton={(
+        <Button
+          className={buttonClass}
+          color='primary'
+          onClick={handleSubmit}
+          variant='contained'
+        >
+          Purchase
+        </Button>
+      )}
+    >
+      <Typography
+        component='h2'
+        gutterBottom
+        variant='h5'
+      >
+        React Stripe Elements Example
+      </Typography>
+      <Typography
+        color='textSecondary'
+        component='p'
+        gutterBottom
+        variant='body2'
+      >
+        Would you like to complete the purchase?
+      </Typography>
+      <CardElement
+        onChange={handleStripeCardChange}
+        onReady={handleCardElementReady}
+      />
+    </ExpandableCard>
+  </Container>
+)
 
+const ExampleStripeCard = ({ stripe }) => {
   const [stripeCard, handleStripeCardChange] = useState({})
 
   // TODO: Implement
@@ -75,52 +128,15 @@ const ExampleStripeCard = ({ stripe }) => {
   }
 
   return (
-    <Container className={rootClass} maxWidth='sm'>
-      <ExpandableCard
-        CollapsibleContent={
-          <>
-            <CardDebugger {...{ stripeCard }} />
-          </>
-        }
-        Media={(
-          <CardMedia
-            className={mediaClass}
-            image='//via.placeholder.com/345x194?text=Example+media'
-            title='Example media'
-          />
-        )}
-        PrimaryButton={(
-          <Button
-            className={buttonClass}
-            color='primary'
-            onClick={handleSubmit}
-            variant='contained'
-          >
-            Purchase
-          </Button>
-        )}
-      >
-        <Typography
-          component='h2'
-          gutterBottom
-          variant='h5'
-        >
-          React Stripe Elements Example
-        </Typography>
-        <Typography
-          color='textSecondary'
-          component='p'
-          gutterBottom
-          variant='body2'
-        >
-          Would you like to complete the purchase?
-        </Typography>
-        <CardElement
-          onChange={handleStripeCardChange}
-          onReady={handleCardElementReady}
-        />
-      </ExpandableCard>
-    </Container>
+    <PureExampleStripeCard
+      {...{
+        handleCardElementReady,
+        handleStripeCardChange,
+        handleSubmit,
+        stripeCard,
+        classes: useStyles()
+      }}
+    />
   )
 }
 
