@@ -6,6 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import configuration from '../../src/configuration'
+import exampleCharge from './exampleCharge'
 import CardDebugger from './CardDebugger'
 import ExpandableCard from '../ExpandableCard'
 import useElements from './useElements'
@@ -36,29 +37,28 @@ const ExampleStripeCard = ({ stripe }) => {
     root: rootClass
   } = useStyles()
 
-  const [purchaseComplete, setPurchaseComplete] = useState(false)
-
-  const [purchasingEnabled, setPurchasingEnabled] = useState(true)
-  const disablePurchasing = () => setPurchasingEnabled(false)
-
-  // TODO: Implement
-  const [cardElement, handleCardElementReady] = useState(null)
-
   const [stripeCard, handleStripeCardChange] = useState({})
 
+  // TODO: Implement
+  const [, handleCardElementReady] = useState(null)
+  const [, setToken] = useState({})
+  const [, setResponse] = useState({})
+  const [, setResponseBody] = useState({})
+
   const handleSubmit = async () => {
-    disablePurchasing()
+    const token = await stripe.createToken({ name: 'Name' })
+    setToken(token)
 
     const {
       token: {
-        id: tokenId
+        id: source
       }
-    } = await stripe.createToken({ name: 'Name' })
+    } = token
 
     const response = await window.fetch(
-      '/api/charge/example',
+      '/api/charge',
       {
-        body: JSON.stringify({ tokenId }),
+        body: JSON.stringify({ source, ...exampleCharge }),
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -66,18 +66,22 @@ const ExampleStripeCard = ({ stripe }) => {
         method: 'POST'
       }
     )
+    setResponse(response)
 
-    if (response.ok) setPurchaseComplete(true)
+    if (response.ok) {
+      const responseJson = await response.json()
+      setResponseBody(responseJson)
+    }
   }
 
-  return purchaseComplete ? (
-    <h1 className={rootClass}>
-      Purchase Complete
-    </h1>
-  ) : (
+  return (
     <Container className={rootClass} maxWidth='sm'>
       <ExpandableCard
-        CollapsibleContent={<CardDebugger {...{ stripeCard }} />}
+        CollapsibleContent={
+          <>
+            <CardDebugger {...{ stripeCard }} />
+          </>
+        }
         Media={(
           <CardMedia
             className={mediaClass}
@@ -89,7 +93,6 @@ const ExampleStripeCard = ({ stripe }) => {
           <Button
             className={buttonClass}
             color='primary'
-            disabled={!purchasingEnabled}
             onClick={handleSubmit}
             variant='contained'
           >

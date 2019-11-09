@@ -6,16 +6,13 @@ const serve = ({
   listeningMessage,
   port,
   express: server,
-  stripe: {
-    createCharge,
-    exampleCharge
-  }
+  stripe: { createCharge }
 }) => {
   server.use(bodyParser.json())
 
   server.post(
-    '/api/charge/example',
-    stripeCharge({ createCharge, ...exampleCharge })
+    '/api/charge',
+    stripeCharge(createCharge)
   )
 
   server.all('*', defaultRouteHandler)
