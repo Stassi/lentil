@@ -1,23 +1,13 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import stringifyBoolean from '../../../src/utility/stringifyBoolean'
 import normalizeParameters from './normalizeStripeCard'
-import stringifyBoolean from '../../src/utility/stringifyBoolean'
-
-const useStyles = makeStyles({
-  root: {
-    overflowX: 'auto',
-    width: '100%'
-  },
-  table: {
-    minWidth: 220
-  }
-})
+import useStyles from './useStyles'
 
 const CardDebugger = ({
   brand,
