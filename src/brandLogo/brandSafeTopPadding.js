@@ -14,6 +14,10 @@ const brandSafeTopPadding = {
       height: 21.356791,
       width: 126.85181
     },
+    jcb: {
+      height: 231.511,
+      width: 300
+    },
     mastercard: {
       height: 120.41,
       width: 146.8
