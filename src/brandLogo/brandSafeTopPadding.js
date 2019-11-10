@@ -22,6 +22,10 @@ const brandSafeTopPadding = {
       height: 120.41,
       width: 146.8
     },
+    unionpay: {
+      height: 160,
+      width: 256
+    },
     visa: {
       height: 323.653,
       width: 1000.046
