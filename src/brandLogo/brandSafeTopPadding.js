@@ -2,6 +2,10 @@ import heightToWidthPercentage from '../utility/heightToWidthPercentage'
 
 const brandSafeTopPadding = {
   paddingTop: ({ brand }) => heightToWidthPercentage(({
+    amex: {
+      height: 997.51703,
+      width: 1000
+    },
     mastercard: {
       height: 120.41,
       width: 146.8
