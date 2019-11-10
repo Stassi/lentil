@@ -6,6 +6,10 @@ const brandSafeTopPadding = {
       height: 997.51703,
       width: 1000
     },
+    discover: {
+      height: 21.356791,
+      width: 126.85181
+    },
     mastercard: {
       height: 120.41,
       width: 146.8
