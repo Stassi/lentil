@@ -6,6 +6,10 @@ const brandSafeTopPadding = {
       height: 997.51703,
       width: 1000
     },
+    diners: {
+      height: 504,
+      width: 1945
+    },
     discover: {
       height: 21.356791,
       width: 126.85181
