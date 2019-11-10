@@ -13,6 +13,7 @@ const PureCard = ({
   handleCardElementReady,
   handleStripeCardChange,
   handleSubmit,
+  image,
   stripeCard,
   classes: {
     button: buttonClass,
@@ -26,8 +27,8 @@ const PureCard = ({
         CollapsibleContent={<CardDebugger {...{ stripeCard }} />}
         Media={(
           <CardMedia
+            {...{ image }}
             className={mediaClass}
-            image='//via.placeholder.com/345x194?text=Example+media'
             title='Example media'
           />
         )}

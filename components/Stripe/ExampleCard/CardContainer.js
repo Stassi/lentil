@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import brandLogo from '../../../src/brandLogo'
 import configuration from '../../../src/configuration'
 import exampleCharge from './exampleCharge'
 import PureCard from './PureCard'
@@ -14,6 +15,8 @@ const useElements = useStripeElements(apiKey)
 
 const CardContainer = ({ stripe }) => {
   const [stripeCard, handleStripeCardChange] = useState({})
+  const { brand } = stripeCard
+  const image = brandLogo(brand)
 
   const [element, handleCardElementReady] = useState(null)
   const elementLoaded = !!element
@@ -59,8 +62,9 @@ const CardContainer = ({ stripe }) => {
         handleCardElementReady,
         handleStripeCardChange,
         handleSubmit,
+        image,
         stripeCard,
-        classes: useStyles()
+        classes: useStyles({ brand })
       }}
     />
   )

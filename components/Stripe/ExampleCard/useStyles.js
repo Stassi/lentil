@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core'
+import brandSafeTopPadding from '../../../src/brandLogo/brandSafeTopPadding'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -6,7 +7,7 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%' // 16:9
+    ...brandSafeTopPadding
   },
   root: {
     marginTop: theme.spacing(3)
