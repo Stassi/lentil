@@ -1,7 +1,22 @@
-import stripe from './stripe.svg'
-import mastercard from './mc.svg'
-import visa from './visa.svg'
+import {
+  amex,
+  diners,
+  discover,
+  jcb,
+  mastercard,
+  stripe,
+  unionpay,
+  visa
+} from './logos'
 
-const brandLogo = brand => ({ mastercard, visa })[brand] || stripe
+const brandLogo = brand => ({
+  amex,
+  diners,
+  discover,
+  jcb,
+  mastercard,
+  unionpay,
+  visa
+})[brand] || stripe
 
 export default brandLogo
