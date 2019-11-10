@@ -7,6 +7,7 @@
   "scripts": {
     "build": "next build",
     "dev": "babel-node --presets @babel/env src/server.js",
+    "dev:next": "next dev",
     "lint": "standard",
     "start": "next start"
   },
