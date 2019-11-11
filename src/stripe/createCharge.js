@@ -1,3 +1,5 @@
-const createCharge = stripe => async options => stripe.charges.create(options)
+import stripe from './stripe'
+
+const createCharge = options => stripe.charges.create(options)
 
 export default createCharge
