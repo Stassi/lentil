@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
+import fetch from 'unfetch'
+import apiTestKeys from '../../../src/stripe/apiTestKeys'
 import brandLogo from '../../../src/brandLogo'
-import configuration from '../../../src/configuration'
 import exampleCharge from './exampleCharge'
 import PureExampleCard from './PureExampleCard'
 import useStripeElements from '../useElements'
 import useStyles from './useStyles'
 
-const {
-  stripeApiTestKeys: {
-    publishable: apiKey
-  }
-} = configuration
-const useElements = useStripeElements(apiKey)
+const { publishable: publishableKey } = apiTestKeys
+const useElements = useStripeElements(publishableKey)
 
 const ExampleCard = ({ stripe }) => {
   const [stripeCard, handleStripeCardChange] = useState({})
@@ -23,8 +20,8 @@ const ExampleCard = ({ stripe }) => {
 
   // TODO: Implement
   const [, setToken] = useState({})
-  const [, setResponse] = useState({})
-  const [, setResponseBody] = useState({})
+  const [, setChargeResponse] = useState({})
+  const [, setCharge] = useState({})
 
   const handleSubmit = async () => {
     const token = await stripe.createToken({ name: 'Name' })
@@ -36,8 +33,8 @@ const ExampleCard = ({ stripe }) => {
       }
     } = token || {}
 
-    const response = await window.fetch(
-      '/api/charge',
+    const chargeResponse = await fetch(
+      '/api/createCharge',
       {
         body: JSON.stringify({ source, ...exampleCharge }),
         headers: {
@@ -47,12 +44,10 @@ const ExampleCard = ({ stripe }) => {
         method: 'POST'
       }
     )
-    setResponse(response)
+    setChargeResponse(chargeResponse)
 
-    if (response.ok) {
-      const responseJson = await response.json()
-      setResponseBody(responseJson)
-    }
+    const charge = await chargeResponse.json()
+    setCharge(charge)
   }
 
   return (
