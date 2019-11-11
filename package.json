@@ -6,8 +6,7 @@
   "author": "Andreas Stassivik <andreas@stassi.net> (https://github.com/Stassi)",
   "scripts": {
     "build": "next build",
-    "dev": "babel-node --presets @babel/env src/server.js",
-    "dev:next": "next dev",
+    "dev": "next dev",
     "lint": "standard",
     "start": "next start"
   },
