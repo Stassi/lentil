@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import CardDebugger from '../CardDebugger'
 import ExpandableCard from '../../ExpandableCard'
 
-const PureCard = ({
+const PureExampleCard = ({
   elementLoaded,
   handleCardElementReady,
   handleStripeCardChange,
@@ -67,4 +67,4 @@ const PureCard = ({
   </Slide>
 )
 
-export default PureCard
+export default PureExampleCard

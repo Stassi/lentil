@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import brandLogo from '../../../src/brandLogo'
 import configuration from '../../../src/configuration'
 import exampleCharge from './exampleCharge'
-import PureCard from './PureCard'
+import PureExampleCard from './PureExampleCard'
 import useStripeElements from '../useElements'
 import useStyles from './useStyles'
 
@@ -13,7 +13,7 @@ const {
 } = configuration
 const useElements = useStripeElements(apiKey)
 
-const CardContainer = ({ stripe }) => {
+const ExampleCard = ({ stripe }) => {
   const [stripeCard, handleStripeCardChange] = useState({})
   const { brand } = stripeCard
   const image = brandLogo(brand)
@@ -34,7 +34,7 @@ const CardContainer = ({ stripe }) => {
       token: {
         id: source
       }
-    } = token
+    } = token || {}
 
     const response = await window.fetch(
       '/api/charge',
@@ -56,7 +56,7 @@ const CardContainer = ({ stripe }) => {
   }
 
   return (
-    <PureCard
+    <PureExampleCard
       {...{
         elementLoaded,
         handleCardElementReady,
@@ -70,4 +70,4 @@ const CardContainer = ({ stripe }) => {
   )
 }
 
-export default useElements(CardContainer)
+export default useElements(ExampleCard)
