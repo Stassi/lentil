@@ -34,7 +34,7 @@ const ExampleCard = ({ stripe }) => {
       token: {
         id: source
       }
-    } = token
+    } = token || {}
 
     const response = await window.fetch(
       '/api/charge',
