@@ -1,3 +1,3 @@
-import ExampleCard from './CardContainer'
+import ExampleCard from './ExampleCard'
 
 export default ExampleCard
