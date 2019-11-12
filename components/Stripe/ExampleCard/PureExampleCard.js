@@ -25,7 +25,7 @@ const PureExampleCard = ({
     root: rootClass
   }
 }) => (
-  <Slide direction='down' in={elementLoaded}>
+  <Slide in={elementLoaded}>
     <Container className={rootClass} maxWidth='sm'>
       <ExpandableCard
         CollapsibleContent={<CardDebugger {...{ stripeCard }} />}
