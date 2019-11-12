@@ -29,7 +29,7 @@ const PureExampleCard = ({
           <CardMedia
             {...{ image }}
             className={mediaClass}
-            title='Example media'
+            title='Brand logo'
           />
         )}
         PrimaryButton={(
