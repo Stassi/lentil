@@ -28,6 +28,10 @@ const ExampleCard = ({ stripe }) => {
   }
 
   useEffect(() => {
+    if (element) element.focus()
+  }, [element])
+
+  useEffect(() => {
     const {
       token: {
         id: source
