@@ -5,8 +5,8 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Container from '@material-ui/core/Container'
 import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography'
-import CardDebugger from '../CardDebugger'
 import ExpandableCard from '../../ExpandableCard'
+import CardDebugger from '../CardDebugger'
 
 const PureExampleCard = ({
   elementLoaded,
