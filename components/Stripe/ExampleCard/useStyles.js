@@ -5,6 +5,17 @@ const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
   },
+  buttonProgress: {
+    left: '50%',
+    marginLeft: -12,
+    marginTop: -12,
+    position: 'absolute',
+    top: '50%'
+  },
+  buttonWrapper: {
+    margin: theme.spacing(1),
+    position: 'relative'
+  },
   media: {
     height: 0,
     ...brandSafeTopPadding
