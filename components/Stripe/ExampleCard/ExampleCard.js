@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
-import fetch from 'unfetch'
-import apiTestKeys from '../../../src/stripe/apiTestKeys'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 import brandLogo from '../../../src/brandLogo'
-import exampleCharge from './exampleCharge'
+import createCharge from '../../../src/stripe/createCharge/client'
+import exampleCharge from '../../../src/stripe/exampleCharge'
+import useElements from '../../../src/stripe/useElements'
 import PureExampleCard from './PureExampleCard'
-import useStripeElements from '../useElements'
 import useStyles from './useStyles'
-
-const { publishable: publishableKey } = apiTestKeys
-const useElements = useStripeElements(publishableKey)
 
 const ExampleCard = ({ stripe }) => {
   const [stripeCard, handleStripeCardChange] = useState({})
@@ -18,37 +17,42 @@ const ExampleCard = ({ stripe }) => {
   const [element, handleCardElementReady] = useState(null)
   const elementLoaded = !!element
 
-  // TODO: Implement
-  const [, setToken] = useState({})
-  const [, setChargeResponse] = useState({})
-  const [, setCharge] = useState({})
+  const [token, setToken] = useState(null)
+
+  const [chargeRequest, setChargeRequest] = useState(null)
+  const [chargeResponse, setChargeResponse] = useState(null)
+  const [charge, setCharge] = useState(null)
 
   const handleSubmit = async () => {
-    const token = await stripe.createToken({ name: 'Name' })
-    setToken(token)
+    setToken(await stripe.createToken({ name: 'Name' }))
+  }
 
+  useEffect(() => {
     const {
       token: {
         id: source
-      }
+      } = {}
     } = token || {}
 
-    const chargeResponse = await fetch(
-      '/api/createCharge',
-      {
-        body: JSON.stringify({ source, ...exampleCharge }),
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'POST'
-      }
-    )
-    setChargeResponse(chargeResponse)
+    if (source) setChargeRequest({ source, ...exampleCharge })
+  }, [token])
 
-    const charge = await chargeResponse.json()
-    setCharge(charge)
-  }
+  useEffect(() => {
+    (async () => {
+      if (chargeRequest) setChargeResponse(await createCharge(chargeRequest))
+    })()
+  }, [chargeRequest])
+
+  useEffect(() => {
+    (async () => {
+      if (chargeResponse) setCharge(await chargeResponse.json())
+    })()
+  }, [chargeResponse])
+
+  useEffect(() => {
+    // TODO: Implement
+    if (charge) console.log({ charge })
+  }, [charge])
 
   return (
     <PureExampleCard

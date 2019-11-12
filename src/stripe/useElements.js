@@ -7,9 +7,12 @@ import {
   injectStripe,
   StripeProvider
 } from 'react-stripe-elements'
-import getDisplayName from '../../src/utility/getDisplayName'
+import apiTestKeys from './apiTestKeys'
+import getDisplayName from '../utility/getDisplayName'
 
-const enhance = ({ apiKey, Component }) => props => {
+const { publishable: apiKey } = apiTestKeys
+
+const enhance = Component => props => {
   const [stripe, setStripe] = useState(null)
 
   // TODO: Load script asynchronously
@@ -24,10 +27,10 @@ const enhance = ({ apiKey, Component }) => props => {
   )
 }
 
-const useElements = apiKey => Component => {
+const useElements = Component => {
   const StripeInjectedComponent = injectStripe(Component)
   const [EnhancedComponent, targetName] = [
-    enhance({ apiKey, Component: StripeInjectedComponent }),
+    enhance(StripeInjectedComponent),
     getDisplayName(StripeInjectedComponent)
   ]
   EnhancedComponent.displayName = `WithStripeElements(${targetName})`

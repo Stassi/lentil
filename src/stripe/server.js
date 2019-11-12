@@ -3,6 +3,6 @@ import apiTestKeys from './apiTestKeys'
 
 const { secret: secretKey } = apiTestKeys
 
-const stripe = Stripe(secretKey)
+const server = Stripe(secretKey)
 
-export default stripe
+export default server
