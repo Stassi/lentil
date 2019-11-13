@@ -21,6 +21,9 @@ const ExampleCard = ({ stripe }) => {
     setChargeResponse,
     setToken,
     stripeCard,
+    stripeCard: {
+      brand
+    } = {},
     token: {
       token: {
         id: source
@@ -53,8 +56,6 @@ const ExampleCard = ({ stripe }) => {
   useEffect(() => {
     if (source) setChargeRequest({ source, ...exampleCharge })
   }, [source])
-
-  const { brand } = stripeCard || {}
 
   return (
     <PureExampleCard
