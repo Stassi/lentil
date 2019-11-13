@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 import brandLogo from '../../../src/brandLogo'
 import createCharge from '../../../src/stripe/createCharge/client'
 import exampleCharge from '../../../src/stripe/exampleCharge'
