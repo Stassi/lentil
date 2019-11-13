@@ -67,9 +67,9 @@ const ExampleCard = ({ stripe }) => {
         handleSubmit,
         image,
         stripeCard,
-        classes: useStyles({ brand }),
         // TODO: Implement
-        loading: false
+        animatePurchaseLoading: false,
+        classes: useStyles({ brand })
       }}
     />
   )
