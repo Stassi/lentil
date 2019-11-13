@@ -27,7 +27,9 @@ const ExampleCard = ({ stripe }) => {
     setToken,
     stripeCard,
     stripeCard: {
-      brand
+      brand,
+      error,
+      empty: inputEmpty = true
     } = {},
     token: {
       token: {
@@ -60,12 +62,18 @@ const ExampleCard = ({ stripe }) => {
 
   useEffect(() => {
     (async () => {
-      if (purchaseRequested) {
-        // TODO: Set token conditionally, implement error handling
-        setToken(await stripe.createToken({ name: 'Name' }))
-      }
+      if (
+        purchaseRequested &&
+        !inputEmpty &&
+        !error
+      ) setToken(await stripe.createToken({ name: 'Name' }))
     })()
-  }, [purchaseRequested])
+  }, [
+    error,
+    inputEmpty,
+    purchaseRequested,
+    stripe
+  ])
 
   useEffect(() => {
     if (tokenId) setChargeRequest({ source: tokenId, ...exampleCharge })
