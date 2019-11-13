@@ -12,7 +12,7 @@ const enhance = Component => ({
       type: errorType
     } = {},
     value: { postalCode } = {}
-  },
+  } = {},
   ...props
 }) => (
   <Component
