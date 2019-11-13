@@ -12,13 +12,8 @@ import useStyles from './useStyles'
 const ExampleCard = ({ stripe }) => {
   const [stripeCard, handleStripeCardChange] = useState({})
   const { brand } = stripeCard
-  const image = brandLogo(brand)
-
   const [element, handleCardElementReady] = useState(null)
-  const elementLoaded = !!element
-
   const [token, setToken] = useState(null)
-
   const [chargeRequest, setChargeRequest] = useState(null)
   const [chargeResponse, setChargeResponse] = useState(null)
   const [charge, setCharge] = useState(null)
@@ -61,15 +56,15 @@ const ExampleCard = ({ stripe }) => {
   return (
     <PureExampleCard
       {...{
-        elementLoaded,
         handleCardElementReady,
         handleStripeCardChange,
         handleSubmit,
-        image,
         stripeCard,
         // TODO: Implement
         animatePurchaseLoading: false,
-        classes: useStyles({ brand })
+        classes: useStyles({ brand }),
+        elementLoaded: !!element,
+        image: brandLogo(brand)
       }}
     />
   )
