@@ -10,13 +10,12 @@ import PureExampleCard from './PureExampleCard'
 import useStyles from './useStyles'
 
 const ExampleCard = ({ stripe }) => {
-  const [stripeCard, handleStripeCardChange] = useState({})
-  const { brand } = stripeCard
-  const [element, handleCardElementReady] = useState(null)
-  const [token, setToken] = useState(null)
+  const [charge, setCharge] = useState(null)
   const [chargeRequest, setChargeRequest] = useState(null)
   const [chargeResponse, setChargeResponse] = useState(null)
-  const [charge, setCharge] = useState(null)
+  const [element, handleCardElementReady] = useState(null)
+  const [stripeCard, handleStripeCardChange] = useState(null)
+  const [token, setToken] = useState(null)
 
   const handleSubmit = async () => {
     setToken(await stripe.createToken({ name: 'Name' }))
@@ -52,6 +51,8 @@ const ExampleCard = ({ stripe }) => {
     // TODO: Implement
     if (charge) console.log({ charge })
   }, [charge])
+
+  const { brand } = stripeCard || {}
 
   return (
     <PureExampleCard

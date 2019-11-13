@@ -16,7 +16,7 @@ const PureExampleCard = ({
   handleStripeCardChange,
   handleSubmit,
   image,
-  stripeCard,
+  stripeCard = {},
   classes: {
     button: buttonClass,
     buttonProgress: buttonProgressClass,
