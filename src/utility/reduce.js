@@ -1,6 +1,3 @@
-const reduce = (reducer, initializer) => list => list.reduce(
-  reducer,
-  initializer
-)
+const reduce = (...args) => list => list.reduce(...args)
 
 export default reduce
