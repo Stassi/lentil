@@ -1,25 +1,26 @@
-import React, {
-  useEffect,
-  useState
-} from 'react'
+import React, { useEffect, useState } from 'react'
 import brandLogo from '../../../src/brandLogo'
 import createCharge from '../../../src/stripe/createCharge/client'
 import exampleCharge from '../../../src/stripe/exampleCharge'
 import useElements from '../../../src/stripe/useElements'
 import PureExampleCard from './PureExampleCard'
+import state from './state'
 import useStyles from './useStyles'
 
 const ExampleCard = ({ stripe }) => {
-  const [charge, setCharge] = useState(null)
-  const [chargeRequest, setChargeRequest] = useState(null)
-  const [chargeResponse, setChargeResponse] = useState(null)
-  const [element, handleCardElementReady] = useState(null)
-  const [stripeCard, handleStripeCardChange] = useState(null)
-  const [token, setToken] = useState(null)
-
-  const handleSubmit = async () => {
-    setToken(await stripe.createToken({ name: 'Name' }))
-  }
+  const {
+    charge,
+    chargeRequest,
+    chargeResponse,
+    element,
+    setCharge,
+    setChargeRequest,
+    setChargeResponse,
+    setToken,
+    stripeCard,
+    token,
+    ...otherState
+  } = state(useState({}))
 
   useEffect(() => {
     if (element) element.focus()
@@ -57,15 +58,16 @@ const ExampleCard = ({ stripe }) => {
   return (
     <PureExampleCard
       {...{
-        handleCardElementReady,
-        handleStripeCardChange,
-        handleSubmit,
+        ...otherState,
         stripeCard,
         // TODO: Implement
         animatePurchaseLoading: false,
         classes: useStyles({ brand }),
         elementLoaded: !!element,
-        image: brandLogo(brand)
+        image: brandLogo(brand),
+        requestToken: async () => {
+          setToken(await stripe.createToken({ name: 'Name' }))
+        }
       }}
     />
   )

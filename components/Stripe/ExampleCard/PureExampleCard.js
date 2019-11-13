@@ -12,18 +12,18 @@ import CardDebugger from '../CardDebugger'
 const PureExampleCard = ({
   animatePurchaseLoading,
   elementLoaded,
-  handleCardElementReady,
-  handleStripeCardChange,
-  handleSubmit,
   image,
-  stripeCard = {},
   classes: {
     button: buttonClass,
     buttonProgress: buttonProgressClass,
     buttonWrapper: buttonWrapperClass,
     media: mediaClass,
     root: rootClass
-  }
+  },
+  requestToken: handleSubmit,
+  stripeCard = {},
+  setElement: handleCardElementReady,
+  setStripeCard: handleStripeCardChange
 }) => (
   <Slide in={elementLoaded}>
     <Container className={rootClass} maxWidth='sm'>
