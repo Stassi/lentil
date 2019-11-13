@@ -56,10 +56,12 @@ const ExampleCard = ({ stripe }) => {
   }, [element])
 
   useEffect(() => {
-    if (purchaseRequested) {
-      // TODO: Implement
-      console.log({ purchaseRequested })
-    }
+    (async () => {
+      if (purchaseRequested) {
+        // TODO: Set token conditionally, implement error handling
+        setToken(await stripe.createToken({ name: 'Name' }))
+      }
+    })()
   }, [purchaseRequested])
 
   useEffect(() => {
@@ -73,10 +75,9 @@ const ExampleCard = ({ stripe }) => {
       animatePurchaseLoading={false}
       classes={useStyles({ brand })}
       elementLoaded={!!element}
-      handleSubmit={async (ev) => {
+      handleSubmit={(ev) => {
         ev.preventDefault()
         setPurchaseRequested(true)
-        setToken(await stripe.createToken({ name: 'Name' }))
       }}
       image={brandLogo(brand)}
     />
