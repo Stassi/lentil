@@ -13,6 +13,7 @@ const PureExampleCard = ({
   animatePurchaseLoading,
   elementLoaded,
   image,
+  stripeCard,
   classes: {
     button: buttonClass,
     buttonProgress: buttonProgressClass,
@@ -21,7 +22,6 @@ const PureExampleCard = ({
     root: rootClass
   },
   requestToken: handleSubmit,
-  stripeCard = {},
   setElement: handleCardElementReady,
   setStripeCard: handleStripeCardChange
 }) => (
