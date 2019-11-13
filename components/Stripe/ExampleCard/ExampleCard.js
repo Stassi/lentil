@@ -27,12 +27,9 @@ const ExampleCard = ({ stripe }) => {
   } = state(useState({}))
 
   useEffect(() => {
-    if (element) element.focus()
-  }, [element])
-
-  useEffect(() => {
-    if (source) setChargeRequest({ source, ...exampleCharge })
-  }, [source])
+    // TODO: Implement
+    if (charge) console.log({ charge })
+  }, [charge])
 
   useEffect(() => {
     (async () => {
@@ -47,9 +44,12 @@ const ExampleCard = ({ stripe }) => {
   }, [chargeResponse])
 
   useEffect(() => {
-    // TODO: Implement
-    if (charge) console.log({ charge })
-  }, [charge])
+    if (element) element.focus()
+  }, [element])
+
+  useEffect(() => {
+    if (source) setChargeRequest({ source, ...exampleCharge })
+  }, [source])
 
   const { brand } = stripeCard || {}
 
