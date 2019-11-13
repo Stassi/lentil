@@ -16,9 +16,11 @@ const ExampleCard = ({ stripe }) => {
     chargeRequest,
     chargeResponse,
     element,
+    purchaseRequested,
     setCharge,
     setChargeRequest,
     setChargeResponse,
+    setPurchaseRequested,
     setToken,
     stripeCard,
     stripeCard: {
@@ -26,7 +28,7 @@ const ExampleCard = ({ stripe }) => {
     } = {},
     token: {
       token: {
-        id: source
+        id: tokenId
       } = {}
     } = {},
     ...otherState
@@ -54,8 +56,15 @@ const ExampleCard = ({ stripe }) => {
   }, [element])
 
   useEffect(() => {
-    if (source) setChargeRequest({ source, ...exampleCharge })
-  }, [source])
+    if (purchaseRequested) {
+      // TODO: Implement
+      console.log({ purchaseRequested })
+    }
+  }, [purchaseRequested])
+
+  useEffect(() => {
+    if (tokenId) setChargeRequest({ source: tokenId, ...exampleCharge })
+  }, [tokenId])
 
   return (
     <PureExampleCard
@@ -64,10 +73,12 @@ const ExampleCard = ({ stripe }) => {
       animatePurchaseLoading={false}
       classes={useStyles({ brand })}
       elementLoaded={!!element}
-      image={brandLogo(brand)}
-      requestToken={async () => {
+      handleSubmit={async (ev) => {
+        ev.preventDefault()
+        setPurchaseRequested(true)
         setToken(await stripe.createToken({ name: 'Name' }))
       }}
+      image={brandLogo(brand)}
     />
   )
 }

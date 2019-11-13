@@ -4,6 +4,7 @@ const state = ([prev, setState]) => ({
   setChargeRequest: chargeRequest => setState({ ...prev, chargeRequest }),
   setChargeResponse: chargeResponse => setState({ ...prev, chargeResponse }),
   setElement: element => setState({ ...prev, element }),
+  setPurchaseRequested: purchaseRequested => setState({ ...prev, purchaseRequested }),
   setStripeCard: stripeCard => setState({ ...prev, stripeCard }),
   setToken: token => setState({ ...prev, token })
 })

@@ -12,6 +12,7 @@ import CardDebugger from '../CardDebugger'
 const PureExampleCard = ({
   animatePurchaseLoading,
   elementLoaded,
+  handleSubmit,
   image,
   stripeCard,
   classes: {
@@ -21,7 +22,6 @@ const PureExampleCard = ({
     media: mediaClass,
     root: rootClass
   },
-  requestToken: handleSubmit,
   setElement: handleCardElementReady,
   setStripeCard: handleStripeCardChange
 }) => (
