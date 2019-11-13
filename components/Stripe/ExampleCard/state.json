@@ -1,0 +1,30 @@
+[
+  [
+    "charge",
+    "setCharge"
+  ],
+  [
+    "chargeRequest",
+    "setChargeRequest"
+  ],
+  [
+    "chargeResponse",
+    "setChargeResponse"
+  ],
+  [
+    "element",
+    "setElement"
+  ],
+  [
+    "purchaseRequested",
+    "setPurchaseRequested"
+  ],
+  [
+    "stripeCard",
+    "setStripeCard"
+  ],
+  [
+    "token",
+    "setToken"
+  ]
+]

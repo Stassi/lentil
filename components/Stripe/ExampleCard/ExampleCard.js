@@ -2,13 +2,16 @@ import React, {
   useEffect,
   useState
 } from 'react'
+import stateFromPairs from '../../../src/utility/stateFromGetterSetterPairs'
 import brandLogo from '../../../src/brandLogo'
 import createCharge from '../../../src/stripe/createCharge/client'
 import exampleCharge from '../../../src/stripe/exampleCharge'
 import useElements from '../../../src/stripe/useElements'
 import PureExampleCard from './PureExampleCard'
-import state from './state'
 import useStyles from './useStyles'
+import stateNames from './state'
+
+const state = stateFromPairs(stateNames)
 
 const ExampleCard = ({ stripe }) => {
   const {
