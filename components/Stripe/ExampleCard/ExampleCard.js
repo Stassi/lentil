@@ -59,17 +59,14 @@ const ExampleCard = ({ stripe }) => {
 
   return (
     <PureExampleCard
-      {...{
-        ...otherState,
-        stripeCard,
-        // TODO: Implement
-        animatePurchaseLoading: false,
-        classes: useStyles({ brand }),
-        elementLoaded: !!element,
-        image: brandLogo(brand),
-        requestToken: async () => {
-          setToken(await stripe.createToken({ name: 'Name' }))
-        }
+      {...{ ...otherState, stripeCard }}
+      // TODO: Implement
+      animatePurchaseLoading={false}
+      classes={useStyles({ brand })}
+      elementLoaded={!!element}
+      image={brandLogo(brand)}
+      requestToken={async () => {
+        setToken(await stripe.createToken({ name: 'Name' }))
       }}
     />
   )
