@@ -18,7 +18,11 @@ const ExampleCard = ({ stripe }) => {
     setChargeResponse,
     setToken,
     stripeCard,
-    token,
+    token: {
+      token: {
+        id: source
+      } = {}
+    } = {},
     ...otherState
   } = state(useState({}))
 
@@ -27,14 +31,8 @@ const ExampleCard = ({ stripe }) => {
   }, [element])
 
   useEffect(() => {
-    const {
-      token: {
-        id: source
-      } = {}
-    } = token || {}
-
     if (source) setChargeRequest({ source, ...exampleCharge })
-  }, [token])
+  }, [source])
 
   useEffect(() => {
     (async () => {
