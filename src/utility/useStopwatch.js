@@ -5,6 +5,11 @@ const useStopwatch = ({ interval, on }) => {
 
   useEffect(() => { if (on) { setTime(0) } }, [on])
 
+  useEffect(
+    () => { if (time && !on) setTime(null) },
+    [on, time]
+  )
+
   useEffect(() => {
     if (typeof time === 'number') {
       const id = setTimeout(() => { setTime(time + interval) }, interval)
