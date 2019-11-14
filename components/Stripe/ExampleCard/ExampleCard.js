@@ -3,6 +3,7 @@ import React, {
   useState
 } from 'react'
 import stateFromPairs from '../../../src/utility/stateFromGetterSetterPairs'
+import useStopwatch from '../../../src/utility/useStopwatch'
 import brandLogo from '../../../src/brandLogo'
 import createCharge from '../../../src/stripe/createCharge/client'
 import exampleCharge from '../../../src/stripe/exampleCharge'
@@ -19,11 +20,14 @@ const ExampleCard = ({ stripe }) => {
     chargeRequest,
     chargeResponse,
     element,
-    purchaseRequested,
+    loading,
+    loadingTimeout,
     setCharge,
     setChargeRequest,
     setChargeResponse,
-    setPurchaseRequested,
+    setLoading,
+    setLoadingAnimation,
+    setLoadingTimeout,
     setToken,
     stripeCard,
     stripeCard: {
@@ -39,10 +43,59 @@ const ExampleCard = ({ stripe }) => {
     ...otherState
   } = state(useState({}))
 
+  const timeSinceLoad = useStopwatch({
+    interval: 1000,
+    on: loading
+  })
+
+  const errorOrInputEmpty = error || inputEmpty
+
+  const oneSecondSinceLoad = timeSinceLoad >= 1000
+  const tenSecondsSinceLoad = timeSinceLoad >= 10000
+
+  const displayCharge = charge && oneSecondSinceLoad
+  const displayError = errorOrInputEmpty && oneSecondSinceLoad
+  const displayLoadingAnimation = !errorOrInputEmpty && oneSecondSinceLoad
+  const displayLoadingTimeout = tenSecondsSinceLoad
+
   useEffect(() => {
-    // TODO: Implement
-    if (charge) console.log({ charge })
-  }, [charge])
+    if (displayCharge) {
+      // TODO: Inform user
+      console.log({ charge })
+      setLoading(false)
+    }
+  }, [charge, displayCharge])
+
+  useEffect(() => {
+    if (displayError) {
+      // TODO: Inform user
+      console.error({ error, inputEmpty })
+      setLoading(false)
+    }
+  }, [
+    displayError,
+    error,
+    inputEmpty
+  ])
+
+  useEffect(() => {
+    if (displayLoadingAnimation) { setLoadingAnimation(true) }
+  }, [displayLoadingAnimation])
+
+  useEffect(() => {
+    if (displayLoadingTimeout) { setLoadingTimeout(true) }
+  }, [displayLoadingTimeout])
+
+  useEffect(() => {
+    if (!loading) { setLoadingAnimation(false) }
+  }, [loading])
+
+  useEffect(() => {
+    if (loadingTimeout) {
+      // TODO: Inform user
+      console.warn({ loadingTimeout })
+    }
+  }, [loadingTimeout])
 
   useEffect(() => {
     (async () => {
@@ -63,7 +116,7 @@ const ExampleCard = ({ stripe }) => {
   useEffect(() => {
     (async () => {
       if (
-        purchaseRequested &&
+        loading &&
         !inputEmpty &&
         !error
       ) setToken(await stripe.createToken({ name: 'Name' }))
@@ -71,7 +124,7 @@ const ExampleCard = ({ stripe }) => {
   }, [
     error,
     inputEmpty,
-    purchaseRequested,
+    loading,
     stripe
   ])
 
@@ -82,13 +135,11 @@ const ExampleCard = ({ stripe }) => {
   return (
     <PureExampleCard
       {...{ ...otherState, stripeCard }}
-      // TODO: Implement
-      animatePurchaseLoading={false}
       classes={useStyles({ brand })}
       elementLoaded={!!element}
       handleSubmit={(ev) => {
         ev.preventDefault()
-        setPurchaseRequested(true)
+        setLoading(true)
       }}
       image={brandLogo(brand)}
     />

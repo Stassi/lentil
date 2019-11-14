@@ -16,8 +16,16 @@
     "setElement"
   ],
   [
-    "purchaseRequested",
-    "setPurchaseRequested"
+    "loading",
+    "setLoading"
+  ],
+  [
+    "loadingAnimation",
+    "setLoadingAnimation"
+  ],
+  [
+    "loadingTimeout",
+    "setLoadingTimeout"
   ],
   [
     "stripeCard",

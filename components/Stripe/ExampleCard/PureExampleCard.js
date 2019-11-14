@@ -10,10 +10,10 @@ import ExpandableCard from '../../ExpandableCard'
 import CardDebugger from '../CardDebugger'
 
 const PureExampleCard = ({
-  animatePurchaseLoading,
   elementLoaded,
   handleSubmit,
   image,
+  loadingAnimation,
   stripeCard,
   classes: {
     button: buttonClass,
@@ -41,13 +41,13 @@ const PureExampleCard = ({
             <Button
               className={buttonClass}
               color='primary'
-              disabled={animatePurchaseLoading}
+              disabled={loadingAnimation}
               onClick={handleSubmit}
               variant='contained'
             >
               Purchase
             </Button>
-            {animatePurchaseLoading && (
+            {loadingAnimation && (
               <CircularProgress
                 className={buttonProgressClass}
                 size={24}
