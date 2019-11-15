@@ -63,7 +63,7 @@ const PureExampleCard = ({
           gutterBottom
           variant='h5'
         >
-          React Stripe Elements Example
+          React Stripe™ Elements Example
         </Typography>
         <Typography
           color='textSecondary'
