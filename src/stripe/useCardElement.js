@@ -24,7 +24,6 @@ const useCardElement = ({ focus }) => {
 
   return {
     Component,
-    element,
     stripeCard,
     loaded: !!element
   }
