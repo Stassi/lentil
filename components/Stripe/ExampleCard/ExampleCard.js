@@ -45,7 +45,7 @@ const ExampleCard = ({ stripe }) => {
       error,
       empty: inputEmpty = true
     } = {}
-  } = useCardElement({ focus: true })
+  } = useCardElement()
 
   const timeSinceLoad = useStopwatch({
     interval: 1000,
