@@ -1,5 +1,4 @@
 import React from 'react'
-import { CardElement } from 'react-stripe-elements'
 import Button from '@material-ui/core/Button'
 import CardMedia from '@material-ui/core/CardMedia'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -11,7 +10,8 @@ import ExpandableCard from '../../ExpandableCard'
 import CardDebugger from '../CardDebugger'
 
 const PureExampleCard = ({
-  elementLoaded,
+  CardElement,
+  cardElementLoaded,
   handleSubmit,
   image,
   loadingAnimation,
@@ -23,11 +23,9 @@ const PureExampleCard = ({
     footer: footerClass,
     media: mediaClass,
     root: rootClass
-  },
-  setElement: handleCardElementReady,
-  setStripeCard: handleStripeCardChange
+  }
 }) => (
-  <Slide in={elementLoaded}>
+  <Slide in={cardElementLoaded}>
     <Container className={rootClass} maxWidth='sm'>
       <ExpandableCard
         CollapsibleContent={<CardDebugger {...{ stripeCard }} />}
@@ -73,10 +71,7 @@ const PureExampleCard = ({
         >
           Would you like to complete the purchase?
         </Typography>
-        <CardElement
-          onChange={handleStripeCardChange}
-          onReady={handleCardElementReady}
-        />
+        {CardElement}
       </ExpandableCard>
       <Typography
         align='center'

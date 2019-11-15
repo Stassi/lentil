@@ -12,10 +12,6 @@
     "setChargeResponse"
   ],
   [
-    "element",
-    "setElement"
-  ],
-  [
     "loading",
     "setLoading"
   ],
@@ -26,10 +22,6 @@
   [
     "loadingTimeout",
     "setLoadingTimeout"
-  ],
-  [
-    "stripeCard",
-    "setStripeCard"
   ],
   [
     "token",

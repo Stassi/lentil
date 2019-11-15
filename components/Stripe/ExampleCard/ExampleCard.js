@@ -7,6 +7,7 @@ import useStopwatch from '../../../src/utility/useStopwatch'
 import brandLogo from '../../../src/brandLogo'
 import createCharge from '../../../src/stripe/createCharge/client'
 import exampleCharge from '../../../src/stripe/exampleCharge'
+import useCardElement from '../../../src/stripe/useCardElement'
 import useElements from '../../../src/stripe/useElements'
 import PureExampleCard from './PureExampleCard'
 import useStyles from './useStyles'
@@ -19,7 +20,6 @@ const ExampleCard = ({ stripe }) => {
     charge,
     chargeRequest,
     chargeResponse,
-    element,
     loading,
     loadingTimeout,
     setCharge,
@@ -29,19 +29,23 @@ const ExampleCard = ({ stripe }) => {
     setLoadingAnimation,
     setLoadingTimeout,
     setToken,
-    stripeCard,
-    stripeCard: {
-      brand,
-      error,
-      empty: inputEmpty = true
-    } = {},
     token: {
       token: {
         id: tokenId
       } = {}
-    } = {},
-    ...otherState
+    } = {}
   } = state(useState({}))
+
+  const {
+    stripeCard,
+    Component: CardElement,
+    loaded: cardElementLoaded,
+    stripeCard: {
+      brand,
+      error,
+      empty: inputEmpty = true
+    } = {}
+  } = useCardElement({ focus: true })
 
   const timeSinceLoad = useStopwatch({
     interval: 1000,
@@ -110,10 +114,6 @@ const ExampleCard = ({ stripe }) => {
   }, [chargeResponse])
 
   useEffect(() => {
-    if (element) element.focus()
-  }, [element])
-
-  useEffect(() => {
     (async () => {
       if (
         loading &&
@@ -134,9 +134,12 @@ const ExampleCard = ({ stripe }) => {
 
   return (
     <PureExampleCard
-      {...{ ...otherState, stripeCard }}
+      {...{
+        CardElement,
+        cardElementLoaded,
+        stripeCard
+      }}
       classes={useStyles({ brand })}
-      elementLoaded={!!element}
       handleSubmit={(ev) => {
         ev.preventDefault()
         setLoading(true)
