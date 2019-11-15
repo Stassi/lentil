@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Container from '@material-ui/core/Container'
 import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography'
+import attribution from '../../../src/brandLogo/attribution'
 import ExpandableCard from '../../ExpandableCard'
 import CardDebugger from '../CardDebugger'
 
@@ -19,6 +20,7 @@ const PureExampleCard = ({
     button: buttonClass,
     buttonProgress: buttonProgressClass,
     buttonWrapper: buttonWrapperClass,
+    footer: footerClass,
     media: mediaClass,
     root: rootClass
   },
@@ -76,6 +78,14 @@ const PureExampleCard = ({
           onReady={handleCardElementReady}
         />
       </ExpandableCard>
+      <Typography
+        align='center'
+        className={footerClass}
+        color='textSecondary'
+        variant='body2'
+      >
+        {attribution}
+      </Typography>
     </Container>
   </Slide>
 )

@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     position: 'relative'
   },
+  footer: {
+    marginTop: theme.spacing(1)
+  },
   media: {
     height: 0,
     ...brandSafeTopPadding
