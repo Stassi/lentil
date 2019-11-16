@@ -1,17 +1,5 @@
 [
   [
-    "charge",
-    "setCharge"
-  ],
-  [
-    "chargeRequest",
-    "setChargeRequest"
-  ],
-  [
-    "chargeResponse",
-    "setChargeResponse"
-  ],
-  [
     "loading",
     "setLoading"
   ],

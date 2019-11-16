@@ -5,10 +5,10 @@ import React, {
 import stateFromPairs from '../../../src/utility/stateFromGetterSetterPairs'
 import useStopwatch from '../../../src/utility/useStopwatch'
 import brandLogo from '../../../src/brandLogo'
-import createCharge from '../../../src/stripe/createCharge/client'
 import exampleCharge from '../../../src/stripe/exampleCharge'
 import exampleTokenOptions from '../../../src/stripe/exampleTokenOptions'
 import useCardElement from '../../../src/stripe/useCardElement'
+import useCharge from '../../../src/stripe/useCharge'
 import useElements from '../../../src/stripe/useElements'
 import useToken from '../../../src/stripe/useToken'
 import PureExampleCard from './PureExampleCard'
@@ -19,15 +19,9 @@ const state = stateFromPairs(stateNames)
 
 const ExampleCard = ({ stripe }) => {
   const {
-    charge,
-    chargeRequest,
-    chargeResponse,
     loading,
     loadingAnimation,
     loadingTimeout,
-    setCharge,
-    setChargeRequest,
-    setChargeResponse,
     setLoading,
     setLoadingAnimation,
     setLoadingTimeout,
@@ -57,6 +51,11 @@ const ExampleCard = ({ stripe }) => {
       id: tokenId
     } = {}
   } = useToken({ stripe, options: tokenOptions })
+
+  const charge = useCharge({
+    options: exampleCharge,
+    source: tokenId
+  })
 
   const loadingAndValidInput = loading && validInput
 
@@ -113,22 +112,6 @@ const ExampleCard = ({ stripe }) => {
       console.warn({ loadingTimeout })
     }
   }, [loadingTimeout])
-
-  useEffect(() => {
-    (async () => {
-      if (chargeRequest) setChargeResponse(await createCharge(chargeRequest))
-    })()
-  }, [chargeRequest])
-
-  useEffect(() => {
-    (async () => {
-      if (chargeResponse) setCharge(await chargeResponse.json())
-    })()
-  }, [chargeResponse])
-
-  useEffect(() => {
-    if (tokenId) setChargeRequest({ source: tokenId, ...exampleCharge })
-  }, [tokenId])
 
   return (
     <PureExampleCard
