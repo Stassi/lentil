@@ -19,9 +19,11 @@ const state = stateFromPairs(stateNames)
 
 const ExampleCard = ({ stripe }) => {
   const {
+    chargeOptions,
     loading,
     loadingAnimation,
     loadingTimeout,
+    setChargeOptions,
     setLoading,
     setLoadingAnimation,
     setLoadingTimeout,
@@ -52,10 +54,7 @@ const ExampleCard = ({ stripe }) => {
     } = {}
   } = useToken({ stripe, options: tokenOptions })
 
-  const charge = useCharge({
-    options: exampleCharge,
-    source: tokenId
-  })
+  const charge = useCharge(chargeOptions)
 
   const loadingAndValidInput = loading && validInput
 
@@ -66,6 +65,10 @@ const ExampleCard = ({ stripe }) => {
   const displayErrorAndDisableLoading = !validInput && oneSecondSinceLoad
   const displayLoadingAnimation = validInput && oneSecondSinceLoad
   const displayLoadingTimeout = validInput && tenSecondsSinceLoad
+
+  useEffect(() => {
+    if (tokenId) setChargeOptions({ ...exampleCharge, source: tokenId })
+  }, [tokenId])
 
   useEffect(() => {
     if (displayChargeAndDisableLoading) {

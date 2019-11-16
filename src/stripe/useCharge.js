@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import createCharge from './createCharge/client'
 
-const useCharge = ({ options, source }) => {
+const useCharge = options => {
   const [charge, setCharge] = useState(null)
   const [chargeRequest, setChargeRequest] = useState(null)
   const [chargeResponse, setChargeResponse] = useState(null)
@@ -19,8 +19,8 @@ const useCharge = ({ options, source }) => {
   }, [chargeResponse])
 
   useEffect(() => {
-    if (source && options) setChargeRequest({ source, ...options })
-  }, [options, source])
+    if (options) setChargeRequest(options)
+  }, [options])
 
   return charge
 }

@@ -1,5 +1,9 @@
 [
   [
+    "chargeOptions",
+    "setChargeOptions"
+  ],
+  [
     "loading",
     "setLoading"
   ],
