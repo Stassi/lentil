@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 import { CardElement as StripeCardElement } from 'react-stripe-elements'
 
 const useCardElement = ({ focus = true } = {}) => {
