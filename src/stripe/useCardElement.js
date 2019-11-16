@@ -1,13 +1,12 @@
-import React, {
-  useEffect,
-  useState
-} from 'react'
+import React, { useEffect, useState } from 'react'
 import { CardElement as StripeCardElement } from 'react-stripe-elements'
 
 const useCardElement = ({ focus = true } = {}) => {
   const [Component, setComponent] = useState(null)
   const [element, onReady] = useState(null)
   const [stripeCard, onChange] = useState({})
+
+  const { empty, error } = stripeCard
 
   useEffect(() => {
     setComponent(<StripeCardElement {...{ onChange, onReady }} />)
@@ -20,7 +19,8 @@ const useCardElement = ({ focus = true } = {}) => {
   return {
     Component,
     stripeCard,
-    loaded: !!element
+    loaded: !!element,
+    validInput: !(empty || error)
   }
 }
 

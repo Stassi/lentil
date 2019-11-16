@@ -21,6 +21,7 @@ const ExampleCard = ({ stripe }) => {
     chargeRequest,
     chargeResponse,
     loading,
+    loadingAnimation,
     loadingTimeout,
     setCharge,
     setChargeRequest,
@@ -43,43 +44,44 @@ const ExampleCard = ({ stripe }) => {
     stripeCard: {
       brand,
       error,
-      empty: inputEmpty = true
-    } = {}
+      empty = true
+    } = {},
+    validInput
   } = useCardElement()
+
+  const tokenRequest = validInput && loading
 
   const timeSinceLoad = useStopwatch({
     interval: 1000,
     on: loading
   })
 
-  const errorOrInputEmpty = error || inputEmpty
-
   const oneSecondSinceLoad = timeSinceLoad >= 1000
   const tenSecondsSinceLoad = timeSinceLoad >= 10000
 
-  const displayCharge = charge && oneSecondSinceLoad
-  const displayError = errorOrInputEmpty && oneSecondSinceLoad
-  const displayLoadingAnimation = !errorOrInputEmpty && oneSecondSinceLoad
-  const displayLoadingTimeout = tenSecondsSinceLoad
+  const displayChargeAndDisableLoading = charge && oneSecondSinceLoad
+  const displayErrorAndDisableLoading = !validInput && oneSecondSinceLoad
+  const displayLoadingAnimation = validInput && oneSecondSinceLoad
+  const displayLoadingTimeout = validInput && tenSecondsSinceLoad
 
   useEffect(() => {
-    if (displayCharge) {
+    if (displayChargeAndDisableLoading) {
       // TODO: Inform user
       console.log({ charge })
       setLoading(false)
     }
-  }, [charge, displayCharge])
+  }, [charge, displayChargeAndDisableLoading])
 
   useEffect(() => {
-    if (displayError) {
+    if (displayErrorAndDisableLoading) {
       // TODO: Inform user
-      console.error({ error, inputEmpty })
+      console.error({ empty, error })
       setLoading(false)
     }
   }, [
-    displayError,
-    error,
-    inputEmpty
+    displayErrorAndDisableLoading,
+    empty,
+    error
   ])
 
   useEffect(() => {
@@ -115,18 +117,9 @@ const ExampleCard = ({ stripe }) => {
 
   useEffect(() => {
     (async () => {
-      if (
-        loading &&
-        !inputEmpty &&
-        !error
-      ) setToken(await stripe.createToken({ name: 'Name' }))
+      if (tokenRequest) setToken(await stripe.createToken({ name: 'Name' }))
     })()
-  }, [
-    error,
-    inputEmpty,
-    loading,
-    stripe
-  ])
+  }, [stripe, tokenRequest])
 
   useEffect(() => {
     if (tokenId) setChargeRequest({ source: tokenId, ...exampleCharge })
@@ -137,6 +130,7 @@ const ExampleCard = ({ stripe }) => {
       {...{
         CardElement,
         cardElementLoaded,
+        loadingAnimation,
         stripeCard
       }}
       classes={useStyles({ brand })}
