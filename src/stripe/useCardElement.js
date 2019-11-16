@@ -6,16 +6,11 @@ import { CardElement as StripeCardElement } from 'react-stripe-elements'
 
 const useCardElement = ({ focus = true } = {}) => {
   const [Component, setComponent] = useState(null)
-  const [element, setElement] = useState(null)
-  const [stripeCard, setStripeCard] = useState({})
+  const [element, onReady] = useState(null)
+  const [stripeCard, onChange] = useState({})
 
   useEffect(() => {
-    setComponent(
-      <StripeCardElement
-        onChange={setStripeCard}
-        onReady={setElement}
-      />
-    )
+    setComponent(<StripeCardElement {...{ onChange, onReady }} />)
   }, [])
 
   useEffect(() => {
