@@ -6,7 +6,7 @@ const useCardElement = ({ focus = true } = {}) => {
   const [element, onReady] = useState(null)
   const [stripeCard, onChange] = useState({})
 
-  const { empty, error } = stripeCard
+  const { error, empty = true } = stripeCard
 
   useEffect(() => {
     setComponent(<StripeCardElement {...{ onChange, onReady }} />)
