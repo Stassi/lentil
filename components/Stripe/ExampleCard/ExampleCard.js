@@ -7,8 +7,10 @@ import useStopwatch from '../../../src/utility/useStopwatch'
 import brandLogo from '../../../src/brandLogo'
 import createCharge from '../../../src/stripe/createCharge/client'
 import exampleCharge from '../../../src/stripe/exampleCharge'
+import exampleTokenOptions from '../../../src/stripe/exampleTokenOptions'
 import useCardElement from '../../../src/stripe/useCardElement'
 import useElements from '../../../src/stripe/useElements'
+import useToken from '../../../src/stripe/useToken'
 import PureExampleCard from './PureExampleCard'
 import useStyles from './useStyles'
 import stateNames from './state'
@@ -29,32 +31,34 @@ const ExampleCard = ({ stripe }) => {
     setLoading,
     setLoadingAnimation,
     setLoadingTimeout,
-    setToken,
-    token: {
-      token: {
-        id: tokenId
-      } = {}
-    } = {}
+    setTokenOptions,
+    tokenOptions
   } = state(useState({}))
 
   const {
     stripeCard,
+    validInput,
     Component: CardElement,
     loaded: cardElementLoaded,
     stripeCard: {
       brand,
       error,
       empty = true
-    } = {},
-    validInput
+    } = {}
   } = useCardElement()
-
-  const tokenRequest = validInput && loading
 
   const timeSinceLoad = useStopwatch({
     interval: 1000,
     on: loading
   })
+
+  const {
+    token: {
+      id: tokenId
+    } = {}
+  } = useToken({ stripe, options: tokenOptions })
+
+  const loadingAndValidInput = loading && validInput
 
   const oneSecondSinceLoad = timeSinceLoad >= 1000
   const tenSecondsSinceLoad = timeSinceLoad >= 10000
@@ -93,8 +97,15 @@ const ExampleCard = ({ stripe }) => {
   }, [displayLoadingTimeout])
 
   useEffect(() => {
-    if (!loading) { setLoadingAnimation(false) }
+    if (!loading) {
+      setLoadingAnimation(false)
+      setTokenOptions()
+    }
   }, [loading])
+
+  useEffect(() => {
+    if (loadingAndValidInput) { setTokenOptions(exampleTokenOptions) }
+  }, [loadingAndValidInput])
 
   useEffect(() => {
     if (loadingTimeout) {
@@ -114,12 +125,6 @@ const ExampleCard = ({ stripe }) => {
       if (chargeResponse) setCharge(await chargeResponse.json())
     })()
   }, [chargeResponse])
-
-  useEffect(() => {
-    (async () => {
-      if (tokenRequest) setToken(await stripe.createToken({ name: 'Name' }))
-    })()
-  }, [stripe, tokenRequest])
 
   useEffect(() => {
     if (tokenId) setChargeRequest({ source: tokenId, ...exampleCharge })

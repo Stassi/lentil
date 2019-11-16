@@ -24,7 +24,7 @@
     "setLoadingTimeout"
   ],
   [
-    "token",
-    "setToken"
+    "tokenOptions",
+    "setTokenOptions"
   ]
 ]
