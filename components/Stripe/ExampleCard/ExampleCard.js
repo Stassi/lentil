@@ -59,9 +59,7 @@ const ExampleCard = ({ stripe }) => {
   }, [loading, validInput])
 
   useEffect(() => {
-    if (validInput && feedbackInitial) {
-      setLoadingAnimation(true)
-    }
+    if (validInput && feedbackInitial) { setLoadingAnimation(true) }
   }, [feedbackInitial, validInput])
 
   useEffect(() => {
