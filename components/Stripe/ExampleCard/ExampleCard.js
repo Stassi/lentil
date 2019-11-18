@@ -2,9 +2,8 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import secondsToMilliseconds from '../../../src/utility/secondsToMilliseconds'
 import stateFromPairs from '../../../src/utility/stateFromGetterSetterPairs'
-import useChronometer from '../../../src/utility/useChronometer'
+import useLoading from '../../../src/utility/useLoading'
 import brandLogo from '../../../src/brandLogo'
 import exampleCharge from '../../../src/stripe/exampleCharge'
 import exampleTokenOptions from '../../../src/stripe/exampleTokenOptions'
@@ -22,10 +21,8 @@ const ExampleCard = ({ stripe }) => {
   const {
     chargeOptions,
     loadingAnimation,
-    loadingTimeout,
     setChargeOptions,
     setLoadingAnimation,
-    setLoadingTimeout,
     setTokenOptions,
     tokenOptions
   } = state(useState({}))
@@ -43,64 +40,12 @@ const ExampleCard = ({ stripe }) => {
   } = useCardElement()
 
   const {
+    feedbackFinal,
+    feedbackInitial,
     active: loading,
     restart: restartLoading,
-    stop: stopLoading,
-    time: loadingTime
-  } = useChronometer({
-    end: secondsToMilliseconds(10),
-    interval: secondsToMilliseconds(1)
-  })
-
-  const {
-    token: {
-      id: tokenId
-    } = {}
-  } = useToken({ stripe, options: tokenOptions })
-
-  const charge = useCharge(chargeOptions)
-
-  const loadingAndValidInput = loading && validInput
-
-  const oneSecondSinceLoad = loadingTime >= 1000
-  const tenSecondsSinceLoad = loadingTime >= 10000
-
-  const displayChargeAndDisableLoading = charge && oneSecondSinceLoad
-  const displayErrorAndDisableLoading = !validInput && oneSecondSinceLoad
-  const displayLoadingAnimation = validInput && oneSecondSinceLoad
-  const displayLoadingTimeout = validInput && tenSecondsSinceLoad
-
-  useEffect(() => {
-    if (tokenId) setChargeOptions({ ...exampleCharge, source: tokenId })
-  }, [tokenId])
-
-  useEffect(() => {
-    if (displayChargeAndDisableLoading) {
-      // TODO: Inform user
-      console.log({ charge })
-      stopLoading()
-    }
-  }, [charge, displayChargeAndDisableLoading])
-
-  useEffect(() => {
-    if (displayErrorAndDisableLoading) {
-      // TODO: Inform user
-      console.error({ empty, error })
-      stopLoading()
-    }
-  }, [
-    displayErrorAndDisableLoading,
-    empty,
-    error
-  ])
-
-  useEffect(() => {
-    if (displayLoadingAnimation) { setLoadingAnimation(true) }
-  }, [displayLoadingAnimation])
-
-  useEffect(() => {
-    if (displayLoadingTimeout) { setLoadingTimeout(true) }
-  }, [displayLoadingTimeout])
+    stop: stopLoading
+  } = useLoading()
 
   useEffect(() => {
     if (!loading) {
@@ -110,15 +55,54 @@ const ExampleCard = ({ stripe }) => {
   }, [loading])
 
   useEffect(() => {
-    if (loadingAndValidInput) { setTokenOptions(exampleTokenOptions) }
-  }, [loadingAndValidInput])
+    if (loading && validInput) { setTokenOptions(exampleTokenOptions) }
+  }, [loading, validInput])
 
   useEffect(() => {
-    if (loadingTimeout) {
-      // TODO: Inform user
-      console.warn({ loadingTimeout })
+    if (validInput && feedbackInitial) {
+      setLoadingAnimation(true)
     }
-  }, [loadingTimeout])
+  }, [feedbackInitial, validInput])
+
+  useEffect(() => {
+    if (!validInput && feedbackInitial) {
+      // TODO: Inform user
+      console.error({ empty, error })
+      stopLoading()
+    }
+  }, [
+    empty,
+    error,
+    feedbackInitial,
+    validInput
+  ])
+
+  useEffect(() => {
+    if (validInput && feedbackFinal) {
+      // TODO: Inform user
+      console.warn({ loadingTimeout: true })
+    }
+  }, [feedbackFinal, validInput])
+
+  const charge = useCharge(chargeOptions)
+
+  useEffect(() => {
+    if (charge && feedbackInitial) {
+      // TODO: Inform user
+      console.log({ charge })
+      stopLoading()
+    }
+  }, [charge, feedbackInitial])
+
+  const {
+    token: {
+      id: tokenId
+    } = {}
+  } = useToken({ stripe, options: tokenOptions })
+
+  useEffect(() => {
+    if (tokenId) setChargeOptions({ ...exampleCharge, source: tokenId })
+  }, [tokenId])
 
   return (
     <PureExampleCard

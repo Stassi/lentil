@@ -8,10 +8,6 @@
     "setLoadingAnimation"
   ],
   [
-    "loadingTimeout",
-    "setLoadingTimeout"
-  ],
-  [
     "tokenOptions",
     "setTokenOptions"
   ]
