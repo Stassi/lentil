@@ -2,8 +2,9 @@ import React, {
   useEffect,
   useState
 } from 'react'
+import secondsToMilliseconds from '../../../src/utility/secondsToMilliseconds'
 import stateFromPairs from '../../../src/utility/stateFromGetterSetterPairs'
-import useStopwatch from '../../../src/utility/useStopwatch'
+import useChronometer from '../../../src/utility/useChronometer'
 import brandLogo from '../../../src/brandLogo'
 import exampleCharge from '../../../src/stripe/exampleCharge'
 import exampleTokenOptions from '../../../src/stripe/exampleTokenOptions'
@@ -20,11 +21,9 @@ const state = stateFromPairs(stateNames)
 const ExampleCard = ({ stripe }) => {
   const {
     chargeOptions,
-    loading,
     loadingAnimation,
     loadingTimeout,
     setChargeOptions,
-    setLoading,
     setLoadingAnimation,
     setLoadingTimeout,
     setTokenOptions,
@@ -43,9 +42,14 @@ const ExampleCard = ({ stripe }) => {
     } = {}
   } = useCardElement()
 
-  const timeSinceLoad = useStopwatch({
-    interval: 1000,
-    on: loading
+  const {
+    active: loading,
+    restart: restartLoading,
+    stop: stopLoading,
+    time: loadingTime
+  } = useChronometer({
+    end: secondsToMilliseconds(10),
+    interval: secondsToMilliseconds(1)
   })
 
   const {
@@ -58,8 +62,8 @@ const ExampleCard = ({ stripe }) => {
 
   const loadingAndValidInput = loading && validInput
 
-  const oneSecondSinceLoad = timeSinceLoad >= 1000
-  const tenSecondsSinceLoad = timeSinceLoad >= 10000
+  const oneSecondSinceLoad = loadingTime >= 1000
+  const tenSecondsSinceLoad = loadingTime >= 10000
 
   const displayChargeAndDisableLoading = charge && oneSecondSinceLoad
   const displayErrorAndDisableLoading = !validInput && oneSecondSinceLoad
@@ -74,7 +78,7 @@ const ExampleCard = ({ stripe }) => {
     if (displayChargeAndDisableLoading) {
       // TODO: Inform user
       console.log({ charge })
-      setLoading(false)
+      stopLoading()
     }
   }, [charge, displayChargeAndDisableLoading])
 
@@ -82,7 +86,7 @@ const ExampleCard = ({ stripe }) => {
     if (displayErrorAndDisableLoading) {
       // TODO: Inform user
       console.error({ empty, error })
-      setLoading(false)
+      stopLoading()
     }
   }, [
     displayErrorAndDisableLoading,
@@ -127,7 +131,7 @@ const ExampleCard = ({ stripe }) => {
       classes={useStyles({ brand })}
       handleSubmit={(ev) => {
         ev.preventDefault()
-        setLoading(true)
+        restartLoading()
       }}
       image={brandLogo(brand)}
     />

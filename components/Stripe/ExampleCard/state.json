@@ -4,10 +4,6 @@
     "setChargeOptions"
   ],
   [
-    "loading",
-    "setLoading"
-  ],
-  [
     "loadingAnimation",
     "setLoadingAnimation"
   ],
