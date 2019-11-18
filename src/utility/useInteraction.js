@@ -2,7 +2,7 @@ import { useEffect, useReducer } from 'react'
 import secondsToMilliseconds from './secondsToMilliseconds'
 import useChronometer from './useChronometer'
 
-const useLoading = () => {
+const useInteraction = () => {
   const {
     active,
     reset,
@@ -73,4 +73,4 @@ const useLoading = () => {
   }
 }
 
-export default useLoading
+export default useInteraction

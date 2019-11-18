@@ -3,7 +3,7 @@ import React, {
   useState
 } from 'react'
 import stateFromPairs from '../../../src/utility/stateFromGetterSetterPairs'
-import useLoading from '../../../src/utility/useLoading'
+import useInteraction from '../../../src/utility/useInteraction'
 import brandLogo from '../../../src/brandLogo'
 import exampleCharge from '../../../src/stripe/exampleCharge'
 import exampleTokenOptions from '../../../src/stripe/exampleTokenOptions'
@@ -40,24 +40,24 @@ const ExampleCard = ({ stripe }) => {
   const {
     feedbackFinal,
     feedbackInitial,
-    active: loading,
-    reset: resetLoading,
-    restart: restartLoading
-  } = useLoading()
+    active: interactionActive,
+    reset: resetInteraction,
+    restart: restartInteraction
+  } = useInteraction()
 
   useEffect(() => {
-    if (!loading) setTokenOptions()
-  }, [loading])
+    if (!interactionActive) setTokenOptions()
+  }, [interactionActive])
 
   useEffect(() => {
-    if (loading && validInput) setTokenOptions(exampleTokenOptions)
-  }, [loading, validInput])
+    if (interactionActive && validInput) setTokenOptions(exampleTokenOptions)
+  }, [interactionActive, validInput])
 
   useEffect(() => {
     if (!validInput && feedbackInitial) {
       // TODO: Inform user
       console.error({ empty, error })
-      resetLoading()
+      resetInteraction()
     }
   }, [
     empty,
@@ -79,7 +79,7 @@ const ExampleCard = ({ stripe }) => {
     if (charge && feedbackInitial) {
       // TODO: Inform user
       console.log({ charge })
-      resetLoading()
+      resetInteraction()
     }
   }, [charge, feedbackInitial])
 
@@ -104,7 +104,7 @@ const ExampleCard = ({ stripe }) => {
       classes={useStyles({ brand })}
       handleSubmit={(ev) => {
         ev.preventDefault()
-        restartLoading()
+        restartInteraction()
       }}
       image={brandLogo(brand)}
     />
