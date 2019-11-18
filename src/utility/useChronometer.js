@@ -30,7 +30,7 @@ const useChronometer = ({ end, interval }) => {
         }
       }
 
-      if (actions.type === 'start' || actions.type === 'restart') {
+      if (actions.type === 'restart') {
         if (prevState.timeoutId) clearTimeout(prevState.timeoutId)
         return {
           active: true,
@@ -84,7 +84,6 @@ const useChronometer = ({ end, interval }) => {
     active,
     time,
     restart: () => dispatch({ type: 'restart' }),
-    start: () => dispatch({ type: 'start' }),
     stop: () => dispatch({ type: 'stop' })
   }
 }
