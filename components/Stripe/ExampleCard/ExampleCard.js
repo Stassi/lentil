@@ -20,9 +20,7 @@ const state = stateFromPairs(stateNames)
 const ExampleCard = ({ stripe }) => {
   const {
     chargeOptions,
-    loadingAnimation,
     setChargeOptions,
-    setLoadingAnimation,
     setTokenOptions,
     tokenOptions
   } = state(useState({}))
@@ -48,19 +46,12 @@ const ExampleCard = ({ stripe }) => {
   } = useLoading()
 
   useEffect(() => {
-    if (!loading) {
-      setLoadingAnimation(false)
-      setTokenOptions()
-    }
+    if (!loading) setTokenOptions()
   }, [loading])
 
   useEffect(() => {
-    if (loading && validInput) { setTokenOptions(exampleTokenOptions) }
+    if (loading && validInput) setTokenOptions(exampleTokenOptions)
   }, [loading, validInput])
-
-  useEffect(() => {
-    if (validInput && feedbackInitial) { setLoadingAnimation(true) }
-  }, [feedbackInitial, validInput])
 
   useEffect(() => {
     if (!validInput && feedbackInitial) {
@@ -107,7 +98,7 @@ const ExampleCard = ({ stripe }) => {
       {...{
         CardElement,
         cardElementLoaded,
-        loadingAnimation,
+        feedbackInitial,
         stripeCard
       }}
       classes={useStyles({ brand })}

@@ -12,9 +12,9 @@ import CardDebugger from '../CardDebugger'
 const PureExampleCard = ({
   CardElement,
   cardElementLoaded,
+  feedbackInitial,
   handleSubmit,
   image,
-  loadingAnimation,
   stripeCard,
   classes: {
     button: buttonClass,
@@ -41,13 +41,13 @@ const PureExampleCard = ({
             <Button
               className={buttonClass}
               color='primary'
-              disabled={loadingAnimation}
+              disabled={feedbackInitial}
               onClick={handleSubmit}
               variant='contained'
             >
               Purchase
             </Button>
-            {loadingAnimation && (
+            {feedbackInitial && (
               <CircularProgress
                 className={buttonProgressClass}
                 size={24}
