@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from 'react'
 
-const useChronometer = ({ interval, end }) => {
+const useChronometer = ({ end, interval }) => {
   const initialState = {
     active: false,
     time: null,
