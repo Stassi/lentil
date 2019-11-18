@@ -43,8 +43,8 @@ const ExampleCard = ({ stripe }) => {
     feedbackFinal,
     feedbackInitial,
     active: loading,
-    restart: restartLoading,
-    stop: stopLoading
+    reset: resetLoading,
+    restart: restartLoading
   } = useLoading()
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const ExampleCard = ({ stripe }) => {
     if (!validInput && feedbackInitial) {
       // TODO: Inform user
       console.error({ empty, error })
-      stopLoading()
+      resetLoading()
     }
   }, [
     empty,
@@ -88,7 +88,7 @@ const ExampleCard = ({ stripe }) => {
     if (charge && feedbackInitial) {
       // TODO: Inform user
       console.log({ charge })
-      stopLoading()
+      resetLoading()
     }
   }, [charge, feedbackInitial])
 
