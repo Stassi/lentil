@@ -5,15 +5,15 @@ import useChronometer from './useChronometer'
 const useLoading = () => {
   const {
     active,
+    reset,
     restart,
-    time,
-    stop: stopChronometer
+    time
   } = useChronometer({
     end: secondsToMilliseconds(10),
     interval: secondsToMilliseconds(1)
   })
 
-  const defaultState = {
+  const initialState = {
     feedbackFinal: false,
     feedbackInitial: false
   }
@@ -25,11 +25,8 @@ const useLoading = () => {
     },
     dispatch
   ] = useReducer((prevState, actions) => {
-    if (actions.type === 'setFeedbackInitial') {
-      return {
-        feedbackFinal: false,
-        feedbackInitial: true
-      }
+    if (actions.type === 'reset') {
+      return initialState
     }
 
     if (actions.type === 'setFeedbackFinal') {
@@ -39,12 +36,21 @@ const useLoading = () => {
       }
     }
 
-    if (actions.type === 'stop') {
-      return defaultState
+    if (actions.type === 'setFeedbackInitial') {
+      return {
+        feedbackFinal: false,
+        feedbackInitial: true
+      }
     }
 
     throw new Error()
-  }, defaultState)
+  }, initialState)
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: 'reset' })
+    }
+  }, [])
 
   useEffect(() => {
     if (
@@ -60,9 +66,9 @@ const useLoading = () => {
     feedbackFinal,
     feedbackInitial,
     restart,
-    stop: () => {
-      stopChronometer()
-      dispatch({ type: 'stop' })
+    reset: () => {
+      reset()
+      dispatch({ type: 'reset' })
     }
   }
 }

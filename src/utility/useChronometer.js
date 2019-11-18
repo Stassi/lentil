@@ -14,51 +14,48 @@ const useChronometer = ({ end, interval }) => {
       timeoutId
     },
     dispatch
-  ] = useReducer(
-    (prevState, actions) => {
-      if (actions.type === 'increment') {
-        return {
-          ...prevState,
-          time: prevState.time + interval
-        }
+  ] = useReducer((prevState, actions) => {
+    if (actions.type === 'increment') {
+      return {
+        ...prevState,
+        time: prevState.time + interval
       }
+    }
 
-      if (actions.type === 'removeTimeout') {
-        return {
-          ...prevState,
-          timeoutId: null
-        }
+    if (actions.type === 'reset') {
+      if (prevState.timeoutId) clearTimeout(prevState.timeoutId)
+      return initialState
+    }
+
+    if (actions.type === 'removeTimeout') {
+      return {
+        ...prevState,
+        timeoutId: null
       }
+    }
 
-      if (actions.type === 'restart') {
-        if (prevState.timeoutId) clearTimeout(prevState.timeoutId)
-        return {
-          active: true,
-          time: 0,
-          timeoutId: null
-        }
+    if (actions.type === 'restart') {
+      if (prevState.timeoutId) clearTimeout(prevState.timeoutId)
+      return {
+        active: true,
+        time: 0,
+        timeoutId: null
       }
+    }
 
-      if (actions.type === 'setTimeoutId') {
-        return {
-          ...prevState,
-          timeoutId: actions.timeoutId
-        }
+    if (actions.type === 'setTimeoutId') {
+      return {
+        ...prevState,
+        timeoutId: actions.timeoutId
       }
+    }
 
-      if (actions.type === 'stop') {
-        if (prevState.timeoutId) clearTimeout(prevState.timeoutId)
-        return initialState
-      }
-
-      throw new Error()
-    },
-    initialState
-  )
+    throw new Error()
+  }, initialState)
 
   useEffect(() => {
     return () => {
-      dispatch({ type: 'stop' })
+      dispatch({ type: 'reset' })
     }
   }, [])
 
@@ -77,14 +74,14 @@ const useChronometer = ({ end, interval }) => {
   }, [active, timeoutId])
 
   useEffect(() => {
-    if (end && time >= end) dispatch({ type: 'stop' })
+    if (end && time >= end) dispatch({ type: 'reset' })
   }, [time])
 
   return {
     active,
     time,
-    restart: () => dispatch({ type: 'restart' }),
-    stop: () => dispatch({ type: 'stop' })
+    reset: () => dispatch({ type: 'reset' }),
+    restart: () => dispatch({ type: 'restart' })
   }
 }
 
