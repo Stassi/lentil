@@ -11,9 +11,9 @@ import createScript from './utility/createScript'
 const useApp = ({ Component, ...pageProps }) => {
   const initialState = {
     CssBaseline: ({ nullifyStyles }) => nullifyStyles ? <MuiCssBaseline /> : null,
-    Page: ({ ...props }) => <Component {...{ ...props, ...pageProps }} />,
     loadStripe: true,
     nullifyStyles: true,
+    Page: ({ ...props }) => <Component {...{ ...props, ...pageProps }} />,
     stripe: null,
     stripeScript: null,
     themeObject: {},
@@ -23,9 +23,9 @@ const useApp = ({ Component, ...pageProps }) => {
   const [
     {
       CssBaseline,
-      Page,
       loadStripe,
       nullifyStyles,
+      Page,
       stripe,
       stripeScript,
       themeObject,
