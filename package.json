@@ -21,7 +21,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-stripe-elements": "^5.1.0",
+    "react-stripe-elements": "^6.0.1",
     "stripe": "^7.13.0",
     "unfetch": "^4.1.0"
   },
