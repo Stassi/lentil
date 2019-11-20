@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
+import GitHubIcon from './GitHubIcon'
 
 const useClasses = makeStyles({
   root: {
@@ -28,6 +29,7 @@ const Layout = ({ titleText, toggleDarkOrLightTheme }) => {
           <Typography className={titleClass} variant='h6'>
             {titleText}
           </Typography>
+
           <IconButton
             color='inherit'
             onClick={(ev) => {
@@ -36,6 +38,10 @@ const Layout = ({ titleText, toggleDarkOrLightTheme }) => {
             }}
           >
             <Brightness7Icon />
+          </IconButton>
+
+          <IconButton href='https://github.com/Stassi/lentil'>
+            <GitHubIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
