@@ -65,6 +65,14 @@ const useApp = ({ Component, ...pageProps }) => {
             titleText,
             setTheme: theme => dispatch({ theme, type: 'setTheme' }),
             setTitle: title => dispatch({ title, type: 'setTitle' }),
+            toggleDarkOrLightTheme: () => dispatch({
+              theme: {
+                palette: {
+                  type: theme.palette.type === 'light' ? 'dark' : 'light'
+                }
+              },
+              type: 'setTheme'
+            }),
             ...pageProps
           }}
         />
