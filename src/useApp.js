@@ -6,37 +6,26 @@ import React, {
 import Head from 'next/head'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import createScript from './utility/createScript'
+import useStripe from './useStripe'
 
 const useApp = ({ Component, ...pageProps }) => {
   const initialState = {
-    loadStripe: true,
     nullifyStyles: true,
-    stripeClient: null,
-    stripeScript: null,
     themeObject: {},
-    titleText: 'App',
-    windowError: null
+    titleText: 'App'
   }
 
   const [
     {
-      loadStripe,
       nullifyStyles,
-      stripeClient,
-      stripeScript,
       themeObject,
-      titleText,
-      windowError
+      titleText
     },
     dispatch
   ] = useReducer((prevState, action) => {
     if (action.type === 'reset') return initialState
-    if (action.type === 'setStripeClient') return { ...prevState, stripeClient: action.stripe }
-    if (action.type === 'setStripeScript') return { ...prevState, stripeScript: action.stripeScript }
     if (action.type === 'setTheme') return { ...prevState, themeObject: action.theme }
     if (action.type === 'setTitle') return { ...prevState, titleText: action.title }
-    if (action.type === 'setWindowError') return { ...prevState, windowError: action.error }
     throw new Error()
   }, initialState)
 
@@ -49,36 +38,13 @@ const useApp = ({ Component, ...pageProps }) => {
     [themeObject]
   )
 
-  useEffect(() => {
-    if (loadStripe && !stripeScript) {
-      const newStripeScript = createScript({
-        document,
-        async: true,
-        onload: () => dispatch({ stripe: window.Stripe, type: 'setStripeClient' }),
-        src: 'https://js.stripe.com/v3/'
-      })
-
-      dispatch({ stripeScript: newStripeScript, type: 'setStripeScript' })
-
-      // TODO: Catch window script error
-      document.body.appendChild(newStripeScript)
-    }
-  }, [loadStripe, stripeScript])
+  // TODO: Retrieve StripeJS instance as { stripe }
+  const { client: stripeClient, script: stripeScript } = useStripe()
 
   useEffect(() => {
     // TODO: Remove
     console.log({ stripeClient, stripeScript })
   }, [stripeClient, stripeScript])
-
-  useEffect(() => {
-    // TODO: Verify
-    window.onerror = (...props) => dispatch({ error: props, type: 'setWindowError' })
-  }, [])
-
-  useEffect(() => {
-    // TODO: Verify
-    if (windowError) console.error({ windowError })
-  }, [windowError])
 
   return (
     <>
