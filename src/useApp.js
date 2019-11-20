@@ -4,13 +4,12 @@ import React, {
   useReducer
 } from 'react'
 import Head from 'next/head'
-import MuiCssBaseline from '@material-ui/core/CssBaseline'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import createScript from './utility/createScript'
 
 const useApp = ({ Component, ...pageProps }) => {
   const initialState = {
-    CssBaseline: ({ nullifyStyles }) => nullifyStyles ? <MuiCssBaseline /> : null,
     loadStripe: true,
     nullifyStyles: true,
     Page: ({ ...props }) => <Component {...{ ...props, ...pageProps }} />,
@@ -23,7 +22,6 @@ const useApp = ({ Component, ...pageProps }) => {
 
   const [
     {
-      CssBaseline,
       loadStripe,
       nullifyStyles,
       Page,
@@ -93,7 +91,7 @@ const useApp = ({ Component, ...pageProps }) => {
       </Head>
 
       <ThemeProvider {...{ theme }}>
-        <CssBaseline {...{ nullifyStyles }} />
+        {nullifyStyles ? <CssBaseline /> : null}
         <Page
           {...{
             stripeClient,
