@@ -11,7 +11,14 @@ import useStripe from './useStripe'
 const useApp = ({ Component, ...pageProps }) => {
   const initialState = {
     nullifyStyles: true,
-    themeObject: {},
+    themeObject: {
+      palette: {
+        primary: {
+          main: '#6772e5'
+        },
+        type: 'dark'
+      }
+    },
     titleText: 'App'
   }
 
@@ -68,6 +75,7 @@ const useApp = ({ Component, ...pageProps }) => {
             toggleDarkOrLightTheme: () => dispatch({
               theme: {
                 palette: {
+                  ...themeObject.palette,
                   type: theme.palette.type === 'light' ? 'dark' : 'light'
                 }
               },
