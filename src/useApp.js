@@ -6,7 +6,10 @@ import React, {
 import Head from 'next/head'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import apiTestKeys from '../src/stripe/apiTestKeys'
 import useStripe from './useStripe'
+
+const { publishable: publishableKey } = apiTestKeys
 
 const useApp = ({ Component, ...pageProps }) => {
   const initialState = {
@@ -45,13 +48,7 @@ const useApp = ({ Component, ...pageProps }) => {
     [themeObject]
   )
 
-  // TODO: Retrieve StripeJS instance as { stripe }
-  const { client: stripeClient, script: stripeScript } = useStripe()
-
-  useEffect(() => {
-    // TODO: Remove
-    console.log({ stripeClient, stripeScript })
-  }, [stripeClient, stripeScript])
+  const { instance: stripe, ...stripeProps } = useStripe({ publishableKey })
 
   return (
     <>
@@ -65,8 +62,8 @@ const useApp = ({ Component, ...pageProps }) => {
         {nullifyStyles ? <CssBaseline /> : null}
         <Component
           {...{
-            stripeClient,
-            stripeScript,
+            ...stripeProps,
+            stripe,
             theme,
             themeObject,
             titleText,
