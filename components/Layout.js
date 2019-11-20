@@ -40,7 +40,7 @@ const Layout = ({ titleText, toggleDarkOrLightTheme }) => {
             <Brightness7Icon />
           </IconButton>
 
-          <IconButton href='https://github.com/Stassi/lentil'>
+          <IconButton color='inherit' href='https://github.com/Stassi/lentil'>
             <GitHubIcon />
           </IconButton>
         </Toolbar>
