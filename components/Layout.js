@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
 import GitHubIcon from './GitHubIcon'
 
-const useClasses = makeStyles(({ breakpoints, spacing }) => ({
+const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   paper: {
     marginBottom: spacing(3),
     marginTop: spacing(3),
@@ -34,7 +34,7 @@ const Layout = ({ titleText, toggleDarkOrLightTheme }) => {
     paper: paperClass,
     root: rootClass,
     title: titleClass
-  } = useClasses()
+  } = useStyles()
 
   return (
     <div className={rootClass}>
