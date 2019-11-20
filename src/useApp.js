@@ -4,7 +4,7 @@ import React, {
   useReducer
 } from 'react'
 import Head from 'next/head'
-import { StripeProvider } from 'react-stripe-elements'
+import { Elements, StripeProvider } from 'react-stripe-elements'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import apiTestKeys from '../src/stripe/apiTestKeys'
@@ -63,27 +63,29 @@ const useApp = ({ Component, ...pageProps }) => {
         {nullifyStyles ? <CssBaseline /> : null}
 
         <StripeProvider stripe={stripe || null}>
-          <Component
-            {...{
-              ...stripeProps,
-              stripe,
-              theme,
-              themeObject,
-              titleText,
-              setTheme: theme => dispatch({ theme, type: 'setTheme' }),
-              setTitle: title => dispatch({ title, type: 'setTitle' }),
-              toggleDarkOrLightTheme: () => dispatch({
-                theme: {
-                  palette: {
-                    ...themeObject.palette,
-                    type: theme.palette.type === 'light' ? 'dark' : 'light'
-                  }
-                },
-                type: 'setTheme'
-              }),
-              ...pageProps
-            }}
-          />
+          <Elements>
+            <Component
+              {...{
+                ...stripeProps,
+                stripe,
+                theme,
+                themeObject,
+                titleText,
+                setTheme: theme => dispatch({ theme, type: 'setTheme' }),
+                setTitle: title => dispatch({ title, type: 'setTitle' }),
+                toggleDarkOrLightTheme: () => dispatch({
+                  theme: {
+                    palette: {
+                      ...themeObject.palette,
+                      type: theme.palette.type === 'light' ? 'dark' : 'light'
+                    }
+                  },
+                  type: 'setTheme'
+                }),
+                ...pageProps
+              }}
+            />
+          </Elements>
         </StripeProvider>
       </ThemeProvider>
     </>
