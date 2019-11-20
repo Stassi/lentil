@@ -1,7 +1,11 @@
-import { useEffect, useReducer } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useReducer
+} from 'react'
 import createScript from './utility/createScript'
 
-const useStripe = () => {
+const useStripe = ({ publishableKey, options }) => {
   const initialState = { client: null, script: null }
 
   const [{ client, script }, dispatch] = useReducer((prevState, action) => {
@@ -31,7 +35,19 @@ const useStripe = () => {
     }
   }, [script])
 
-  return { client, script }
+  const instance = useMemo(() => {
+    if (client) return client(publishableKey, options)
+  }, [
+    client,
+    publishableKey,
+    options
+  ])
+
+  return {
+    client,
+    instance,
+    script
+  }
 }
 
 export default useStripe
