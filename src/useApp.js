@@ -17,7 +17,8 @@ const useApp = ({ Component, ...pageProps }) => {
     stripe: null,
     stripeScript: null,
     themeObject: {},
-    titleText: 'App'
+    titleText: 'App',
+    windowError: null
   }
 
   const [
@@ -29,7 +30,8 @@ const useApp = ({ Component, ...pageProps }) => {
       stripe,
       stripeScript,
       themeObject,
-      titleText
+      titleText,
+      windowError
     },
     dispatch
   ] = useReducer((prevState, action) => {
@@ -38,12 +40,18 @@ const useApp = ({ Component, ...pageProps }) => {
     if (action.type === 'setStripeScript') return { ...prevState, stripeScript: action.stripeScript }
     if (action.type === 'setTheme') return { ...prevState, themeObject: action.theme }
     if (action.type === 'setTitle') return { ...prevState, titleText: action.title }
+    if (action.type === 'setWindowError') return { ...prevState, windowError: action.error }
     throw new Error()
   }, initialState)
 
   useEffect(() => {
     return () => dispatch({ type: 'reset' })
   }, [])
+
+  const theme = useMemo(
+    () => createMuiTheme(themeObject),
+    [themeObject]
+  )
 
   useEffect(() => {
     if (loadStripe && !stripeScript) {
@@ -56,14 +64,25 @@ const useApp = ({ Component, ...pageProps }) => {
 
       dispatch({ stripeScript: newStripeScript, type: 'setStripeScript' })
 
+      // TODO: Catch window script error
       document.body.appendChild(newStripeScript)
     }
   }, [loadStripe, stripeScript])
 
-  const theme = useMemo(
-    () => createMuiTheme(themeObject),
-    [themeObject]
-  )
+  useEffect(() => {
+    // TODO: Remove
+    console.log({ stripe, stripeScript })
+  }, [stripe, stripeScript])
+
+  useEffect(() => {
+    // TODO: Verify
+    window.onerror = (...props) => dispatch({ error: props, type: 'setWindowError' })
+  }, [])
+
+  useEffect(() => {
+    // TODO: Verify
+    if (windowError) console.error({ windowError })
+  }, [windowError])
 
   return (
     <>
