@@ -15,7 +15,7 @@ const useClasses = makeStyles({
   }
 })
 
-const Layout = ({ titleText }) => {
+const Layout = ({ titleText, toggleDarkOrLightTheme }) => {
   const {
     root: rootClass,
     title: titleClass
@@ -28,7 +28,13 @@ const Layout = ({ titleText }) => {
           <Typography className={titleClass} variant='h6'>
             {titleText}
           </Typography>
-          <IconButton color='inherit'>
+          <IconButton
+            color='inherit'
+            onClick={(ev) => {
+              ev.preventDefault()
+              toggleDarkOrLightTheme()
+            }}
+          >
             <Brightness7Icon />
           </IconButton>
         </Toolbar>
