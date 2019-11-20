@@ -12,7 +12,6 @@ const useApp = ({ Component, ...pageProps }) => {
   const initialState = {
     loadStripe: true,
     nullifyStyles: true,
-    Page: ({ ...props }) => <Component {...{ ...props, ...pageProps }} />,
     stripeClient: null,
     stripeScript: null,
     themeObject: {},
@@ -24,7 +23,6 @@ const useApp = ({ Component, ...pageProps }) => {
     {
       loadStripe,
       nullifyStyles,
-      Page,
       stripeClient,
       stripeScript,
       themeObject,
@@ -92,7 +90,7 @@ const useApp = ({ Component, ...pageProps }) => {
 
       <ThemeProvider {...{ theme }}>
         {nullifyStyles ? <CssBaseline /> : null}
-        <Page
+        <Component
           {...{
             stripeClient,
             stripeScript,
@@ -100,7 +98,8 @@ const useApp = ({ Component, ...pageProps }) => {
             themeObject,
             titleText,
             setTheme: theme => dispatch({ theme, type: 'setTheme' }),
-            setTitle: title => dispatch({ title, type: 'setTitle' })
+            setTitle: title => dispatch({ title, type: 'setTitle' }),
+            ...pageProps
           }}
         />
       </ThemeProvider>
