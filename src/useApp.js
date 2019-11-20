@@ -19,7 +19,7 @@ const useApp = ({ Component, ...pageProps }) => {
         type: 'dark'
       }
     },
-    titleText: 'App'
+    titleText: 'lentil'
   }
 
   const [
