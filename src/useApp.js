@@ -14,7 +14,7 @@ const useApp = ({ Component, ...pageProps }) => {
     loadStripe: true,
     nullifyStyles: true,
     Page: ({ ...props }) => <Component {...{ ...props, ...pageProps }} />,
-    stripe: null,
+    stripeClient: null,
     stripeScript: null,
     themeObject: {},
     titleText: 'App',
@@ -27,7 +27,7 @@ const useApp = ({ Component, ...pageProps }) => {
       loadStripe,
       nullifyStyles,
       Page,
-      stripe,
+      stripeClient,
       stripeScript,
       themeObject,
       titleText,
@@ -36,7 +36,7 @@ const useApp = ({ Component, ...pageProps }) => {
     dispatch
   ] = useReducer((prevState, action) => {
     if (action.type === 'reset') return initialState
-    if (action.type === 'setStripe') return { ...prevState, stripe: action.stripe }
+    if (action.type === 'setStripeClient') return { ...prevState, stripeClient: action.stripe }
     if (action.type === 'setStripeScript') return { ...prevState, stripeScript: action.stripeScript }
     if (action.type === 'setTheme') return { ...prevState, themeObject: action.theme }
     if (action.type === 'setTitle') return { ...prevState, titleText: action.title }
@@ -58,7 +58,7 @@ const useApp = ({ Component, ...pageProps }) => {
       const newStripeScript = createScript({
         document,
         async: true,
-        onload: () => dispatch({ stripe: window.Stripe, type: 'setStripe' }),
+        onload: () => dispatch({ stripe: window.Stripe, type: 'setStripeClient' }),
         src: 'https://js.stripe.com/v3/'
       })
 
@@ -71,8 +71,8 @@ const useApp = ({ Component, ...pageProps }) => {
 
   useEffect(() => {
     // TODO: Remove
-    console.log({ stripe, stripeScript })
-  }, [stripe, stripeScript])
+    console.log({ stripeClient, stripeScript })
+  }, [stripeClient, stripeScript])
 
   useEffect(() => {
     // TODO: Verify
@@ -96,7 +96,7 @@ const useApp = ({ Component, ...pageProps }) => {
         <CssBaseline {...{ nullifyStyles }} />
         <Page
           {...{
-            stripe,
+            stripeClient,
             stripeScript,
             theme,
             themeObject,
