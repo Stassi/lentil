@@ -1,3 +1,3 @@
-import Index from '../components/Demo/Layout'
+import Index from '../components/Layout'
 
 export default Index
