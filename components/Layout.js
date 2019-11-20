@@ -1,4 +1,5 @@
 import React from 'react'
+import { injectStripe, CardElement } from 'react-stripe-elements'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Container from '@material-ui/core/Container'
@@ -61,13 +62,15 @@ const Layout = ({ titleText, toggleDarkOrLightTheme }) => {
 
       <Container maxWidth='sm'>
         <Paper className={paperClass}>
-          <Typography component='h1' variant='h4'>
+          <Typography component='h1' gutterBottom variant='h4'>
             Debug
           </Typography>
+
+          <CardElement />
         </Paper>
       </Container>
     </div>
   )
 }
 
-export default Layout
+export default injectStripe(Layout)
