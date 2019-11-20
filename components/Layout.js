@@ -9,15 +9,15 @@ import Typography from '@material-ui/core/Typography'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
 import GitHubIcon from './GitHubIcon'
 
-const useClasses = makeStyles(theme => ({
+const useClasses = makeStyles(({ breakpoints, spacing }) => ({
   paper: {
-    marginBottom: theme.spacing(3),
-    marginTop: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginBottom: theme.spacing(6),
-      marginTop: theme.spacing(6),
-      padding: theme.spacing(3)
+    marginBottom: spacing(3),
+    marginTop: spacing(3),
+    padding: spacing(2),
+    [breakpoints.up(600 + spacing(3) * 2)]: {
+      marginBottom: spacing(6),
+      marginTop: spacing(6),
+      padding: spacing(3)
     }
   },
   root: {
