@@ -61,6 +61,7 @@ const useApp = ({ Component, ...pageProps }) => {
 
       <ThemeProvider {...{ theme }}>
         {nullifyStyles ? <CssBaseline /> : null}
+
         <StripeProvider stripe={stripe || null}>
           <Component
             {...{
