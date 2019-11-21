@@ -9,7 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
 import GitHubIcon from './GitHubIcon'
-import Elements from './Stripe/Elements'
+import useElements from '../src/useElements'
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   paper: {
@@ -39,6 +39,8 @@ const Layout = ({
     root: rootClass,
     title: titleClass
   } = useStyles()
+
+  const { Component: Elements } = useElements()
 
   return (
     <div className={rootClass}>
