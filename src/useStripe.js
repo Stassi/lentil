@@ -1,8 +1,9 @@
-import {
+import React, {
   useEffect,
   useMemo,
   useReducer
 } from 'react'
+import { StripeProvider } from 'react-stripe-elements'
 import createScript from './utility/createScript'
 
 const useStripe = ({ publishableKey, options }) => {
@@ -47,7 +48,12 @@ const useStripe = ({ publishableKey, options }) => {
   return {
     client,
     instance,
-    script
+    script,
+    InstanceProvider: ({ children }) => (
+      <StripeProvider {...{ stripe: instance }}>
+        {children}
+      </StripeProvider>
+    )
   }
 }
 
