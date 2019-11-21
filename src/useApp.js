@@ -4,7 +4,6 @@ import React, {
 } from 'react'
 import Head from 'next/head'
 import { Elements, StripeProvider } from 'react-stripe-elements'
-import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import apiTestKeys from '../src/stripe/apiTestKeys'
 import useMuiTheme from './useMuiTheme'
@@ -25,7 +24,7 @@ const useApp = ({ Component, ...pageProps }) => {
     return () => dispatch({ type: 'reset' })
   }, [])
 
-  const { theme, ...themeProps } = useMuiTheme()
+  const { Provider: ThemeProvider, ...themeProps } = useMuiTheme()
 
   const { instance: stripe, ...stripeProps } = useStripe({ publishableKey })
 
@@ -37,7 +36,7 @@ const useApp = ({ Component, ...pageProps }) => {
         </title>
       </Head>
 
-      <ThemeProvider {...{ theme }}>
+      <ThemeProvider>
         {nullifyStyles ? <CssBaseline /> : null}
 
         <StripeProvider stripe={stripe || null}>
@@ -45,7 +44,6 @@ const useApp = ({ Component, ...pageProps }) => {
             <Component
               {...{
                 stripe,
-                theme,
                 titleText,
                 ...stripeProps,
                 ...themeProps,
