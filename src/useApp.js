@@ -26,7 +26,7 @@ const useApp = ({ Component, ...pageProps }) => {
 
   const { Provider: ThemeProvider, ...themeProps } = useMuiTheme()
 
-  const { InstanceProvider: StripeProvider, ...stripeProps } = useStripe({ publishableKey })
+  const { Provider: StripeProvider, ...stripeProps } = useStripe({ publishableKey })
 
   return (
     <>

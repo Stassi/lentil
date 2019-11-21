@@ -49,7 +49,7 @@ const useStripe = ({ publishableKey, options }) => {
     client,
     instance,
     script,
-    InstanceProvider: ({ children }) => (
+    Provider: ({ children }) => (
       <StripeProvider {...{ stripe: instance }}>
         {children}
       </StripeProvider>
