@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  useReducer
-} from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 import { Elements } from 'react-stripe-elements'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -12,17 +9,7 @@ import useStripe from './useStripe'
 const { publishable: publishableKey } = apiTestKeys
 
 const useApp = ({ Component, ...pageProps }) => {
-  const initialState = { titleText: 'lentil' }
-
-  const [{ titleText }, dispatch] = useReducer((prevState, action) => {
-    if (action.type === 'reset') return initialState
-    if (action.type === 'setTitle') return { ...prevState, titleText: action.title }
-    throw new Error()
-  }, initialState)
-
-  useEffect(() => {
-    return () => dispatch({ type: 'reset' })
-  }, [])
+  const [titleText, setTitle] = useState('lentil')
 
   const { Provider: ThemeProvider, ...themeProps } = useMuiTheme()
 
@@ -43,11 +30,11 @@ const useApp = ({ Component, ...pageProps }) => {
           <Elements>
             <Component
               {...{
+                setTitle,
                 titleText,
                 ...stripeProps,
                 ...themeProps,
-                ...pageProps,
-                setTitle: title => dispatch({ title, type: 'setTitle' })
+                ...pageProps
               }}
             />
           </Elements>
