@@ -30,7 +30,10 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   }
 }))
 
-const Layout = ({ titleText, toggleDarkOrLightTheme }) => {
+const Layout = ({
+  theme: { toggleDarkOrLight },
+  title: { text: title }
+}) => {
   const {
     paper: paperClass,
     root: rootClass,
@@ -42,14 +45,14 @@ const Layout = ({ titleText, toggleDarkOrLightTheme }) => {
       <AppBar position='static'>
         <Toolbar>
           <Typography className={titleClass} variant='h6'>
-            {titleText}
+            {title}
           </Typography>
 
           <IconButton
             color='inherit'
             onClick={(ev) => {
               ev.preventDefault()
-              toggleDarkOrLightTheme()
+              toggleDarkOrLight()
             }}
           >
             <Brightness7Icon />

@@ -28,7 +28,7 @@ const useMuiTheme = () => {
         {children}
       </ThemeProvider>
     ),
-    toggleDarkOrLightTheme: () => setTheme({
+    toggleDarkOrLight: () => setTheme({
       palette: {
         ...configuration.palette,
         type: theme.palette.type === 'light' ? 'dark' : 'light'

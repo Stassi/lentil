@@ -7,12 +7,12 @@ import useStripe from './useStripe'
 
 const { publishable: publishableKey } = apiTestKeys
 
-const useApp = ({ Component, ...pageProps }) => {
+const useApp = ({ Component, ...nextJs }) => {
   const [titleText, setTitle] = useState('lentil')
 
-  const { Provider: ThemeProvider, ...themeProps } = useMuiTheme()
+  const { Provider: ThemeProvider, ...theme } = useMuiTheme()
 
-  const { Provider: StripeProvider, ...stripeProps } = useStripe({ publishableKey })
+  const { Provider: StripeProvider, ...stripe } = useStripe({ publishableKey })
 
   return (
     <>
@@ -28,11 +28,13 @@ const useApp = ({ Component, ...pageProps }) => {
         <StripeProvider>
           <Component
             {...{
-              setTitle,
-              titleText,
-              ...stripeProps,
-              ...themeProps,
-              ...pageProps
+              nextJs,
+              stripe,
+              theme,
+              title: {
+                set: setTitle,
+                text: titleText
+              }
             }}
           />
         </StripeProvider>
