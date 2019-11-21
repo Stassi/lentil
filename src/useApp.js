@@ -12,9 +12,9 @@ import useStripe from './useStripe'
 const { publishable: publishableKey } = apiTestKeys
 
 const useApp = ({ Component, ...pageProps }) => {
-  const initialState = { nullifyStyles: true, titleText: 'lentil' }
+  const initialState = { titleText: 'lentil' }
 
-  const [{ nullifyStyles, titleText }, dispatch] = useReducer((prevState, action) => {
+  const [{ titleText }, dispatch] = useReducer((prevState, action) => {
     if (action.type === 'reset') return initialState
     if (action.type === 'setTitle') return { ...prevState, titleText: action.title }
     throw new Error()
@@ -37,7 +37,7 @@ const useApp = ({ Component, ...pageProps }) => {
       </Head>
 
       <ThemeProvider>
-        {nullifyStyles ? <CssBaseline /> : null}
+        <CssBaseline />
 
         <StripeProvider>
           <Elements>
