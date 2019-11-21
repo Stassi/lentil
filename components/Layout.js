@@ -31,8 +31,8 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 }))
 
 const Layout = ({
-  theme: { toggleDarkOrLight },
-  title: { text: title }
+  titleText,
+  theme: { toggleDarkOrLight }
 }) => {
   const {
     paper: paperClass,
@@ -45,7 +45,7 @@ const Layout = ({
       <AppBar position='static'>
         <Toolbar>
           <Typography className={titleClass} variant='h6'>
-            {title}
+            {titleText}
           </Typography>
 
           <IconButton

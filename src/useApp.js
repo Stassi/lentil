@@ -29,12 +29,10 @@ const useApp = ({ Component, ...nextJs }) => {
           <Component
             {...{
               nextJs,
+              setTitle,
               stripe,
               theme,
-              title: {
-                set: setTitle,
-                text: titleText
-              }
+              titleText
             }}
           />
         </StripeProvider>
