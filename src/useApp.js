@@ -3,7 +3,7 @@ import React, {
   useReducer
 } from 'react'
 import Head from 'next/head'
-import { Elements, StripeProvider } from 'react-stripe-elements'
+import { Elements } from 'react-stripe-elements'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import apiTestKeys from '../src/stripe/apiTestKeys'
 import useMuiTheme from './useMuiTheme'
@@ -26,7 +26,7 @@ const useApp = ({ Component, ...pageProps }) => {
 
   const { Provider: ThemeProvider, ...themeProps } = useMuiTheme()
 
-  const { instance: stripe, ...stripeProps } = useStripe({ publishableKey })
+  const { InstanceProvider: StripeProvider, ...stripeProps } = useStripe({ publishableKey })
 
   return (
     <>
@@ -39,11 +39,10 @@ const useApp = ({ Component, ...pageProps }) => {
       <ThemeProvider>
         {nullifyStyles ? <CssBaseline /> : null}
 
-        <StripeProvider {...{ stripe }}>
+        <StripeProvider>
           <Elements>
             <Component
               {...{
-                stripe,
                 titleText,
                 ...stripeProps,
                 ...themeProps,
