@@ -1,8 +1,8 @@
-import {
+import React, {
   useMemo,
   useState
 } from 'react'
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 const useMuiTheme = () => {
   const [configuration, setTheme] = useState({
@@ -23,6 +23,11 @@ const useMuiTheme = () => {
     configuration,
     setTheme,
     theme,
+    Provider: ({ children }) => (
+      <ThemeProvider {...{ theme }}>
+        {children}
+      </ThemeProvider>
+    ),
     toggleDarkOrLightTheme: () => setTheme({
       palette: {
         ...configuration.palette,
