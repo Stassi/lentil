@@ -39,7 +39,7 @@ const useApp = ({ Component, ...pageProps }) => {
       <ThemeProvider>
         {nullifyStyles ? <CssBaseline /> : null}
 
-        <StripeProvider stripe={stripe || null}>
+        <StripeProvider {...{ stripe }}>
           <Elements>
             <Component
               {...{

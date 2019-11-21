@@ -35,13 +35,14 @@ const useStripe = ({ publishableKey, options }) => {
     }
   }, [script])
 
-  const instance = useMemo(() => {
-    if (client) return client(publishableKey, options)
-  }, [
-    client,
-    publishableKey,
-    options
-  ])
+  const instance = useMemo(
+    () => client ? client(publishableKey, options) : null,
+    [
+      client,
+      publishableKey,
+      options
+    ]
+  )
 
   return {
     client,
