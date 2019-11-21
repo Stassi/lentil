@@ -1,5 +1,5 @@
 import React from 'react'
-import { injectStripe, CardElement } from 'react-stripe-elements'
+import { CardElement } from 'react-stripe-elements'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Container from '@material-ui/core/Container'
@@ -9,6 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
 import GitHubIcon from './GitHubIcon'
+import Elements from './Stripe/Elements'
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   paper: {
@@ -66,11 +67,13 @@ const Layout = ({ titleText, toggleDarkOrLightTheme }) => {
             Debug
           </Typography>
 
-          <CardElement />
+          <Elements>
+            <CardElement />
+          </Elements>
         </Paper>
       </Container>
     </div>
   )
 }
 
-export default injectStripe(Layout)
+export default Layout

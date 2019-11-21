@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import { Elements } from 'react-stripe-elements'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import apiTestKeys from '../src/stripe/apiTestKeys'
 import useMuiTheme from './useMuiTheme'
@@ -27,17 +26,15 @@ const useApp = ({ Component, ...pageProps }) => {
         <CssBaseline />
 
         <StripeProvider>
-          <Elements>
-            <Component
-              {...{
-                setTitle,
-                titleText,
-                ...stripeProps,
-                ...themeProps,
-                ...pageProps
-              }}
-            />
-          </Elements>
+          <Component
+            {...{
+              setTitle,
+              titleText,
+              ...stripeProps,
+              ...themeProps,
+              ...pageProps
+            }}
+          />
         </StripeProvider>
       </ThemeProvider>
     </>
