@@ -6,35 +6,68 @@ import React, {
 import { StripeProvider } from 'react-stripe-elements'
 import createScript from './utility/createScript'
 
-const useStripe = ({ publishableKey, options }) => {
-  const initialState = { client: null, script: null }
+const appendClientScriptToBody = ({ document, onload }) => {
+  const script = createScript({
+    document,
+    onload,
+    async: true,
+    src: 'https://js.stripe.com/v3/'
+  })
 
-  const [{ client, script }, dispatch] = useReducer((prevState, action) => {
+  document.body.appendChild(script)
+
+  return script
+}
+
+const useStripe = ({ options, publishableKey }) => {
+  const initialState = {
+    client: null,
+    metricsController: null,
+    script: null
+  }
+
+  const [{
+    client,
+    metricsController,
+    script
+  }, dispatch] = useReducer((prevState, action) => {
     if (action.type === 'reset') return initialState
     if (action.type === 'setClient') return { ...prevState, client: action.client }
+    if (action.type === 'setMetricsController') {
+      return {
+        ...prevState,
+        metricsController: action.metricsController
+      }
+    }
     if (action.type === 'setScript') return { ...prevState, script: action.script }
     throw new Error()
   }, initialState)
 
   useEffect(() => {
+    dispatch({
+      metricsController: document.querySelector(
+        'body > iframe[src^="https://js.stripe.com/v2/m/outer.html"]'
+      ),
+      type: 'setMetricsController'
+    })
+
+    dispatch({
+      script: document.querySelector('script[src^="https://js.stripe.com/v3/"') ||
+        appendClientScriptToBody({
+          document,
+          onload: () => {
+            dispatch({ client: window.Stripe, type: 'setClient' })
+          }
+        }),
+      type: 'setScript'
+    })
+
     return () => dispatch({ type: 'reset' })
   }, [])
 
   useEffect(() => {
-    if (!script) {
-      const newScript = createScript({
-        document,
-        async: true,
-        onload: () => dispatch({ client: window.Stripe, type: 'setClient' }),
-        src: 'https://js.stripe.com/v3/'
-      })
-
-      dispatch({ script: newScript, type: 'setScript' })
-
-      // TODO: Catch script error
-      document.body.appendChild(newScript)
-    }
-  }, [script])
+    dispatch({ client: window.Stripe, type: 'setClient' })
+  }, [metricsController])
 
   const instance = useMemo(
     () => client
@@ -50,6 +83,7 @@ const useStripe = ({ publishableKey, options }) => {
   return {
     client,
     instance,
+    metricsController,
     script,
     Provider: ({ children }) => (
       <StripeProvider {...{ stripe: instance }}>
