@@ -1,5 +1,12 @@
 import React from 'react'
-import { CardElement } from 'react-stripe-elements'
+import {
+  CardCVCElement,
+  CardElement,
+  CardExpiryElement,
+  CardNumberElement,
+  IbanElement,
+  IdealBankElement
+} from 'react-stripe-elements'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Container from '@material-ui/core/Container'
@@ -66,17 +73,24 @@ const Layout = ({
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth='sm'>
-        <Paper className={paperClass}>
-          <Typography component='h1' gutterBottom variant='h4'>
-            Debug
-          </Typography>
-
-          <Elements>
-            <CardElement />
-          </Elements>
-        </Paper>
-      </Container>
+      {[
+        <CardElement key='card' />,
+        <>
+          <CardNumberElement />
+          <CardExpiryElement />
+          <CardCVCElement />
+        </>,
+        <IbanElement key='iban' supportedCountries={['SEPA']} />,
+        <IdealBankElement key='ideal' />
+      ].map((element, index) => (
+        <Container key={index} maxWidth='sm'>
+          <Paper className={paperClass}>
+            <Elements>
+              {element}
+            </Elements>
+          </Paper>
+        </Container>
+      ))}
     </div>
   )
 }
