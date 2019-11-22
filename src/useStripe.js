@@ -13,11 +13,14 @@ const useStripe = ({ options, publishableKey }) => {
     script: null
   }
 
-  const [{
-    client,
-    metricsController,
-    script
-  }, dispatch] = useReducer((prevState, action) => {
+  const [
+    {
+      client,
+      metricsController,
+      script
+    },
+    dispatch
+  ] = useReducer((prevState, action) => {
     if (action.type === 'reset') return initialState
     if (action.type === 'setClient') return { ...prevState, client: action.client }
     if (action.type === 'setMetricsController') {
