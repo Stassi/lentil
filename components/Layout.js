@@ -83,7 +83,7 @@ const Layout = ({
         <IbanElement key='iban' supportedCountries={['SEPA']} />,
         <IdealBankElement key='ideal' />
       ].map((element, index) => (
-        <Container key={index} maxWidth='sm'>
+        <Container key={index} maxWidth='xs'>
           <Paper className={paperClass}>
             <Elements>
               {element}
