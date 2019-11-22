@@ -4,20 +4,7 @@ import React, {
   useReducer
 } from 'react'
 import { StripeProvider } from 'react-stripe-elements'
-import createScript from './utility/createScript'
-
-const appendClientScriptToBody = ({ document, onload }) => {
-  const script = createScript({
-    document,
-    onload,
-    async: true,
-    src: 'https://js.stripe.com/v3/'
-  })
-
-  document.body.appendChild(script)
-
-  return script
-}
+import appendClientScriptToBody from './stripe/appendClientScriptToBody'
 
 const useStripe = ({ options, publishableKey }) => {
   const initialState = {
@@ -55,9 +42,7 @@ const useStripe = ({ options, publishableKey }) => {
       script: document.querySelector('script[src^="https://js.stripe.com/v3/"') ||
         appendClientScriptToBody({
           document,
-          onload: () => {
-            dispatch({ client: window.Stripe, type: 'setClient' })
-          }
+          onload: () => dispatch({ client: window.Stripe, type: 'setClient' })
         }),
       type: 'setScript'
     })
