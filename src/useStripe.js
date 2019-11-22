@@ -21,10 +21,7 @@ const useStripe = ({ options, publishableKey }) => {
     if (action.type === 'reset') return initialState
     if (action.type === 'setClient') return { ...prevState, client: action.client }
     if (action.type === 'setMetricsController') {
-      return {
-        ...prevState,
-        metricsController: action.metricsController
-      }
+      return { ...prevState, metricsController: action.metricsController }
     }
     if (action.type === 'setScript') return { ...prevState, script: action.script }
     throw new Error()
