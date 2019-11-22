@@ -65,16 +65,18 @@ const useStripe = ({ options, publishableKey }) => {
     ]
   )
 
+  const Provider = useMemo(() => ({ children }) => (
+    <StripeProvider stripe={instance}>
+      {children}
+    </StripeProvider>
+  ), [instance])
+
   return {
     client,
     instance,
     metricsController,
-    script,
-    Provider: ({ children }) => (
-      <StripeProvider {...{ stripe: instance }}>
-        {children}
-      </StripeProvider>
-    )
+    Provider,
+    script
   }
 }
 
