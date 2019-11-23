@@ -19,14 +19,12 @@ import Brightness7Icon from '@material-ui/icons/Brightness7'
 import GitHubIcon from './GitHubIcon'
 import useElements from '../src/useElements'
 
-const useStyles = makeStyles(({ palette, spacing }) => ({
+const useStyles = makeStyles(({ spacing }) => ({
   elementsContainer: {
     paddingTop: spacing(2)
   },
   elementsPaper: {
-    color: palette.text.secondary,
-    padding: spacing(2),
-    textAlign: 'center'
+    padding: spacing(2)
   },
   root: {
     flexGrow: 1
