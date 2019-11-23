@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Container from '@material-ui/core/Container'
 import IconButton from '@material-ui/core/IconButton'
+import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -18,16 +19,14 @@ import Brightness7Icon from '@material-ui/icons/Brightness7'
 import GitHubIcon from './GitHubIcon'
 import useElements from '../src/useElements'
 
-const useStyles = makeStyles(({ breakpoints, spacing }) => ({
-  paper: {
-    marginBottom: spacing(3),
-    marginTop: spacing(3),
+const useStyles = makeStyles(({ palette, spacing }) => ({
+  elementsContainer: {
+    paddingTop: spacing(2)
+  },
+  elementsPaper: {
+    color: palette.text.secondary,
     padding: spacing(2),
-    [breakpoints.up(600 + spacing(3) * 2)]: {
-      marginBottom: spacing(6),
-      marginTop: spacing(6),
-      padding: spacing(3)
-    }
+    textAlign: 'center'
   },
   root: {
     flexGrow: 1
@@ -42,7 +41,8 @@ const Layout = ({
   theme: { toggleDarkOrLight }
 }) => {
   const {
-    paper: paperClass,
+    elementsContainer: elementsContainerClass,
+    elementsPaper: elementsPaperClass,
     root: rootClass,
     title: titleClass
   } = useStyles()
@@ -73,24 +73,53 @@ const Layout = ({
         </Toolbar>
       </AppBar>
 
-      {[
-        <CardElement key='card' />,
-        <>
-          <CardNumberElement />
-          <CardExpiryElement />
-          <CardCVCElement />
-        </>,
-        <IbanElement key='iban' supportedCountries={['SEPA']} />,
-        <IdealBankElement key='ideal' />
-      ].map((element, index) => (
-        <Container key={index} maxWidth='xs'>
-          <Paper className={paperClass}>
-            <Elements>
-              {element}
-            </Elements>
-          </Paper>
-        </Container>
-      ))}
+      <Container className={elementsContainerClass} maxWidth='md'>
+        <Grid container spacing={1}>
+
+          <Grid item xs={6}>
+            <Paper className={elementsPaperClass}>
+              <Elements>
+                <CardElement />
+              </Elements>
+            </Paper>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Paper className={elementsPaperClass}>
+              <Elements>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <CardNumberElement />
+                  </Grid>
+                  <Grid item xs>
+                    <CardExpiryElement />
+                  </Grid>
+                  <Grid item xs>
+                    <CardCVCElement />
+                  </Grid>
+                </Grid>
+              </Elements>
+            </Paper>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Paper className={elementsPaperClass}>
+              <Elements>
+                <IbanElement supportedCountries={['SEPA']} />
+              </Elements>
+            </Paper>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Paper className={elementsPaperClass}>
+              <Elements>
+                <IdealBankElement />
+              </Elements>
+            </Paper>
+          </Grid>
+
+        </Grid>
+      </Container>
     </div>
   )
 }
