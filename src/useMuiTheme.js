@@ -10,6 +10,9 @@ const useMuiTheme = () => {
       primary: {
         main: '#6772e5'
       },
+      secondary: {
+        main: '#24b47e'
+      },
       type: 'dark'
     }
   })
