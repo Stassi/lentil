@@ -117,6 +117,7 @@ const SplitCardAppBar = () => {
           >
             <Grid item xs={12} sm>
               <TextField
+                autoFocus
                 className={textFieldClass}
                 fullWidth
                 label='Card number'
