@@ -37,9 +37,6 @@ const useStyles = makeStyles(({
       }
     }
   },
-  root: {
-    flexGrow: 1
-  },
   submitButton: {
     marginLeft: spacing(2),
     transition: transitions.create(['margin-left']),
@@ -85,76 +82,75 @@ const useStyles = makeStyles(({
   }
 }))
 
-const SplitCardAppBar = () => {
+const SplitCardAppBar = ({ closeDialog }) => {
   const {
     closeButton: closeButtonClass,
     grid: gridClass,
-    root: rootClass,
     submitButton: submitButtonClass,
     textField: textFieldClass,
     title: titleClass
   } = useStyles()
 
   return (
-    <div className={rootClass}>
-      <AppBar color='default' position='static'>
-        <Toolbar>
-          <IconButton
-            className={closeButtonClass}
-            color='inherit'
-            edge='start'
-          >
-            <CloseIcon />
-          </IconButton>
+    <AppBar color='default' position='relative'>
+      <Toolbar>
+        <IconButton
+          className={closeButtonClass}
+          color='inherit'
+          edge='start'
+          onClick={closeDialog}
+        >
+          <CloseIcon />
+        </IconButton>
 
-          <Typography className={titleClass} variant='h6'>
-            Payment
-          </Typography>
+        <Typography className={titleClass} variant='h6'>
+          Payment
+        </Typography>
 
-          <Grid
-            className={gridClass}
-            container
-          >
-            <Grid item xs={12} sm>
-              <TextField
-                autoFocus
-                className={textFieldClass}
-                fullWidth
-                label='Card number'
-                margin='dense'
-                variant='filled'
-              />
-            </Grid>
-            <Grid item xs={7} sm={3}>
-              <TextField
-                className={textFieldClass}
-                fullWidth
-                label='MM / YY'
-                margin='dense'
-                variant='filled'
-              />
-            </Grid>
-            <Grid item xs={5} sm={2}>
-              <TextField
-                className={textFieldClass}
-                fullWidth
-                label='CVC'
-                margin='dense'
-                variant='filled'
-              />
-            </Grid>
+        <Grid
+          className={gridClass}
+          container
+        >
+          <Grid item xs={12} sm>
+            <TextField
+              autoFocus
+              className={textFieldClass}
+              fullWidth
+              label='Card number'
+              margin='dense'
+              variant='filled'
+            />
           </Grid>
+          <Grid item xs={7} sm={3}>
+            <TextField
+              className={textFieldClass}
+              fullWidth
+              label='MM / YY'
+              margin='dense'
+              variant='filled'
+            />
+          </Grid>
+          <Grid item xs={5} sm={2}>
+            <TextField
+              className={textFieldClass}
+              fullWidth
+              label='CVC'
+              margin='dense'
+              variant='filled'
+            />
+          </Grid>
+        </Grid>
 
-          <Button
-            className={submitButtonClass}
-            color='primary'
-            variant='contained'
-          >
-            Pay
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+        <Button
+          className={submitButtonClass}
+          color='primary'
+          onClick={closeDialog}
+          variant='contained'
+        >
+          Pay
+        </Button>
+      </Toolbar>
+    </AppBar>
   )
 }
 
