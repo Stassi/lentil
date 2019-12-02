@@ -1,18 +1,16 @@
 import React from 'react'
-import { fade, makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
-import TextField from '@material-ui/core/TextField'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import CloseIcon from '@material-ui/icons/Close'
+import { Elements } from 'react-stripe-elements'
+import SplitCard from './Stripe/SplitCard'
 
 const useStyles = makeStyles(({
   breakpoints,
-  palette,
-  shape,
   spacing,
   transitions
 }) => ({
@@ -23,54 +21,11 @@ const useStyles = makeStyles(({
       marginRight: spacing(1)
     }
   },
-  grid: {
-    transition: transitions.create(['padding-left', 'padding-right']),
-    [breakpoints.up('md')]: {
-      maxWidth: breakpoints.values.sm,
-      padding: spacing(0, 2)
-    },
-    '& .MuiGrid-item': {
-      padding: spacing(0, 0.25),
-      transition: transitions.create(['padding-left', 'padding-right']),
-      [breakpoints.up('md')]: {
-        padding: spacing(0, 0.5)
-      }
-    }
-  },
   submitButton: {
     marginLeft: spacing(2),
     transition: transitions.create(['margin-left']),
     [breakpoints.down('xs')]: {
       marginLeft: spacing(1)
-    }
-  },
-  textField: {
-    backgroundColor: fade(palette.primary.main, 0.15),
-    borderRadius: shape.borderRadius,
-    transition: transitions.create(['background-color']),
-    '&:hover': {
-      backgroundColor: fade(palette.primary.main, 0.25)
-    },
-    '& .MuiFilledInput-root': {
-      borderColor: palette.background.paper,
-      borderStyle: 'solid',
-      borderWidth: 1,
-      transition: transitions.create(['border-color']),
-      '&.Mui-focused': {
-        borderColor: palette.primary.main
-      },
-      '&:after': {
-        borderBottomColor: palette.secondary.main
-      },
-      '&.Mui-error:after': {
-        borderBottomColor: palette.error.main
-      }
-    },
-    '& label.Mui-focused': {
-      color: palette.secondary.main,
-      '&.Mui-error': {
-        color: palette.error.main
-      }
     }
   },
   title: {
@@ -82,12 +37,10 @@ const useStyles = makeStyles(({
   }
 }))
 
-const SplitCardAppBar = ({ closeDialog }) => {
+const SplitCardAppBar = ({ closeDialog, theme }) => {
   const {
     closeButton: closeButtonClass,
-    grid: gridClass,
     submitButton: submitButtonClass,
-    textField: textFieldClass,
     title: titleClass
   } = useStyles()
 
@@ -107,39 +60,9 @@ const SplitCardAppBar = ({ closeDialog }) => {
           Payment
         </Typography>
 
-        <Grid
-          className={gridClass}
-          container
-        >
-          <Grid item xs={12} sm>
-            <TextField
-              autoFocus
-              className={textFieldClass}
-              fullWidth
-              label='Card number'
-              margin='dense'
-              variant='filled'
-            />
-          </Grid>
-          <Grid item xs={7} sm={3}>
-            <TextField
-              className={textFieldClass}
-              fullWidth
-              label='MM / YY'
-              margin='dense'
-              variant='filled'
-            />
-          </Grid>
-          <Grid item xs={5} sm={2}>
-            <TextField
-              className={textFieldClass}
-              fullWidth
-              label='CVC'
-              margin='dense'
-              variant='filled'
-            />
-          </Grid>
-        </Grid>
+        <Elements>
+          <SplitCard {...{ theme }} />
+        </Elements>
 
         <Button
           className={submitButtonClass}
