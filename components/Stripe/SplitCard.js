@@ -56,6 +56,9 @@ const useStyles = makeStyles(({
       '&.Mui-error': {
         color: palette.error.main
       }
+    },
+    '& .MuiFormHelperText-root': {
+      marginBottom: spacing(0.5)
     }
   }
 }))
