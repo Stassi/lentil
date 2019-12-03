@@ -68,7 +68,7 @@ const SplitCard = ({ theme }) => {
 
   return (
     <Grid className={rootClass} container>
-      <Grid item xs={12} sm>
+      <Grid item sm xs={12}>
         <TextField
           {...{ theme }}
           autoFocus
@@ -81,7 +81,7 @@ const SplitCard = ({ theme }) => {
         />
       </Grid>
 
-      <Grid item xs={7} sm={3}>
+      <Grid item sm={3} xs={7}>
         <TextField
           {...{ theme }}
           className={textFieldClass}
@@ -93,7 +93,7 @@ const SplitCard = ({ theme }) => {
         />
       </Grid>
 
-      <Grid item xs={5} sm={2}>
+      <Grid item sm={2} xs={5}>
         <TextField
           {...{ theme }}
           className={textFieldClass}
