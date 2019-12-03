@@ -6,7 +6,7 @@ import {
 } from 'react-stripe-elements'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-import StripeTextField from './TextField'
+import TextField from './TextField'
 
 const useStyles = makeStyles(({
   breakpoints,
@@ -69,7 +69,7 @@ const SplitCard = ({ theme }) => {
   return (
     <Grid className={rootClass} container>
       <Grid item xs={12} sm>
-        <StripeTextField
+        <TextField
           {...{ theme }}
           autoFocus
           className={textFieldClass}
@@ -82,7 +82,7 @@ const SplitCard = ({ theme }) => {
       </Grid>
 
       <Grid item xs={7} sm={3}>
-        <StripeTextField
+        <TextField
           {...{ theme }}
           className={textFieldClass}
           component={CardExpiryElement}
@@ -94,7 +94,7 @@ const SplitCard = ({ theme }) => {
       </Grid>
 
       <Grid item xs={5} sm={2}>
-        <StripeTextField
+        <TextField
           {...{ theme }}
           className={textFieldClass}
           component={CardCvcElement}
