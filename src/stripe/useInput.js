@@ -1,8 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const useInput = () => {
-  const [element, setElement] = useState(null)
   const [changeObject, setChangeObject] = useState(null)
+  const [element, setElement] = useState(null)
+  const [focused, setFocused] = useState(false)
+
+  useEffect(() => console.log({ changeObject }), [changeObject])
 
   const {
     error,
@@ -19,8 +22,10 @@ const useInput = () => {
     empty,
     error,
     errorMessage,
+    focused,
     setChangeObject,
-    setElement
+    setElement,
+    setFocused
   }
 }
 

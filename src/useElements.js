@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Elements, injectStripe } from 'react-stripe-elements'
 
 const useElements = () => {
-  const ElementsGroup = injectStripe(({ children }) => <div>{children}</div>)
+  const ElementsGroup = useMemo(() => injectStripe(
+    ({ children }) => <div>{children}</div>
+  ) || null, [injectStripe])
 
-  return ({
-    Component: ({ children }) => (
-      <Elements>
-        <ElementsGroup>
-          {children}
-        </ElementsGroup>
-      </Elements>
-    )
-  })
+  return useMemo(() => ({ children }) => (
+    <Elements>
+      <ElementsGroup>
+        {children}
+      </ElementsGroup>
+    </Elements>
+  ), [Elements, ElementsGroup])
 }
 
 export default useElements

@@ -6,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import CloseIcon from '@material-ui/icons/Close'
-import { Elements } from 'react-stripe-elements'
 import SplitCard from './Stripe/SplitCard'
 
 const useStyles = makeStyles(({
@@ -60,9 +59,7 @@ const SplitCardAppBar = ({ closeDialog, theme }) => {
           Payment
         </Typography>
 
-        <Elements>
-          <SplitCard {...{ theme }} />
-        </Elements>
+        <SplitCard {...{ theme }} />
 
         <Button
           className={submitButtonClass}
